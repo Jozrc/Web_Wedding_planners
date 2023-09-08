@@ -1,8 +1,22 @@
+import React, { useState } from "react";
 import miImagen from "./images/banmer.jpg";
 import Imagenlogo from "./images/register.png";
 import './Styles/index.css';
 
+
 function HeaderAndFooterExample() {
+
+  const [ampliarImagen1, setAmpliarImagen1] = useState(false);
+  const [ampliarImagen2, setAmpliarImagen2] = useState(false);
+
+  const toggleAmpliar1 = () => {
+    setAmpliarImagen1(!ampliarImagen1);
+  };
+
+  const toggleAmpliar2 = () => {
+    setAmpliarImagen2(!ampliarImagen2);
+  };
+
   return (
 <div>
     <div className='baner'>
@@ -23,8 +37,16 @@ function HeaderAndFooterExample() {
     <div className='fondo'>
     
      <div className="planner">
+      
+     <div id="imagen-contenedor" onClick={toggleAmpliar1}>
+     <img
+       src={miImagen}
+       alt="Descripción de la imagen" 
+       id="imagen" 
+       className={`imagen-planner ${ampliarImagen1 ? "ampliada" : ""}`} // Aplica el estilo de zoom a la imagen
+       />
+     </div>
 
-     <img src={miImagen} alt="Descripción de la imagen" className="imagen-planner"/>
      <h1 className="titulo-planner">Titulo-Nombre</h1>
      <p className="descripcion">Descripcion: 
      Bienvenidos a "Amor Eterno", un evento mágico diseñado y coordinado por nuestro experimentado equipo
@@ -37,7 +59,15 @@ function HeaderAndFooterExample() {
 
     <div className="planner">
 
-     <img src={miImagen} alt="Descripción de la imagen" className="imagen-planner"/>
+    <div id="imagen-contenedor" onClick={toggleAmpliar2}>
+     <img
+       src={miImagen}
+       alt="Descripción de la imagen" 
+       id="imagen" 
+       className={`imagen-planner ${ampliarImagen2 ? "ampliada" : ""}`} // Aplica el estilo de zoom a la imagen
+       />
+     </div>
+
      <h1 className="titulo-planner">Titulo-Nombre</h1>
      <p className="descripcion">Descripcion: 
      Bienvenidos a "Amor Eterno", un evento mágico diseñado y coordinado por nuestro experimentado equipo
