@@ -6,6 +6,10 @@ body{
   background-attachment: fixed;
 }
 
+.custom-link {
+  color: #ff0000; /* Cambia el color a rojo (puedes usar cualquier valor de color que desees) */
+}
+
 .container {
   margin-top: 3%;
   display: flex; /* Utiliza flexbox para alinear elementos horizontalmente */

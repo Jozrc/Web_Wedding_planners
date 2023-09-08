@@ -11,12 +11,37 @@
 .subt{
     font-size: 115px;
     color: aliceblue;
+    text-shadow: 5px 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.opciones {
+  background-color: white;
+  list-style: none; /* Elimina los puntos de lista */
+  padding: 0; /* Elimina el espacio interior predeterminado de la lista */
+  display: flex; /* Convierte la lista en una fila horizontal */
+  justify-content: space-around; /* Distribuye los elementos de la lista uniformemente */
+}
+
+.opciones li {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1.5em;
+  margin: 0; /* Elimina el espacio entre elementos de la lista */
+  padding: 10px 20px; /* Añade espacio alrededor de cada elemento de la lista */
+  color: rgb(63, 63, 63); /* Establece el color del texto del elemento de la lista */
+  border-radius: 5px; /* Agrega bordes redondeados a los elementos de la lista */
+  cursor: pointer; /* Cambia el cursor al pasar sobre los elementos de la lista */
+}
+
+.opciones li:hover {
+  color: #d3694b;
 }
 
 .fondo{
+    margin-top: -20px;
     padding: 10%; /* Agrega espacio dentro del elemento en lugar de márgenes laterales */
     background-color: rgba(255, 255, 255, 0.493);
     backdrop-filter: blur(10px);
+    
     
 }
 
@@ -26,6 +51,9 @@
   width: 100%; /* Asegura que el contenedor ocupa todo el ancho del padre */
   height: 320px; /* Asegura que el contenedor ocupa todo el alto del padre */
   margin-top: 10%;
+  border-radius: 15px;
+  bottom: 140px;
+  box-shadow: 5px 5px 3px #c99688;
 }
 
 .imagen-planner{
@@ -55,35 +83,34 @@
 }
 
 .button-planner {
-  width: 30%;
+  width: 15%;
   box-sizing: border-box;
   border: none;
-  background-color: #d3694b;
+  background-color:#755946;
   color: white;
   font-size: 1.5em;
   font-weight: 500;
-  margin-left: 10%;
+  margin-left: 17%;
   cursor: pointer;
   border-radius: 10px;
+  box-shadow: 2px 2px 1px rgb(68, 56, 49);
 }
 
 .button-planner:hover {
-  background-color: hsl(27, 100%, 69%);
-}
-
-.button {
-  position:  center;
-  width: 100%;
-  border: none;
   background-color: #d3694b;
-  color: white;
-  font-size: 1.5em; /* Aumenta el tamaño de la fuente */
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 8px;
-  border-radius: 10px; /* Agrega un radio de borde para suavizar los bordes */
+  box-shadow: none;
 }
 
-.button:hover {
-  background-color: hsl(27, 100%, 69%);
+.button-search{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #d3694b;
+  border-radius: 12px;
+  border-color: rgba(255, 255, 255, 0);
+  color: white;
+}
+
+.button-search:hover{
+  border-color: #d3694b;
+  background-color: rgba(255, 255, 255, 0);
+  color: #d3694b;
 }

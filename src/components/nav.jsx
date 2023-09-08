@@ -6,12 +6,13 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import './Styles/login.css';
 
 function NavScrollExample() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#" className="Nav-titulo">Wedding planner</Navbar.Brand>
+        <Navbar.Brand href="/" className="Nav-titulo">Wedding planner</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -19,7 +20,7 @@ function NavScrollExample() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="#action2">Profile</Nav.Link>
             <NavDropdown title="Más" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Compras</NavDropdown.Item>
@@ -40,7 +41,7 @@ function NavScrollExample() {
             />
             <button className="button-search" >Search</button>
           </Form>
-          <Nav.Link href="#action1" className="ms-2">Login</Nav.Link>
+          <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Login</Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

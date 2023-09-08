@@ -11,6 +11,15 @@ function HeaderAndFooterExample() {
         </h2>
     </div>
 
+<div>
+  <ul className="opciones">
+    <li>Bodas</li>
+    <li>Paquetes</li>
+    <li>Ofertas</li>
+    <li>Restaurantes</li>
+  </ul>
+</div>
+
     <div className='fondo'>
     
      <div className="planner">
