@@ -11,7 +11,7 @@ function NavScrollExample() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">Wedding planner</Navbar.Brand>
+        <Navbar.Brand href="#" className="Nav-titulo">Wedding planner</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -38,7 +38,7 @@ function NavScrollExample() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <button className="button-search" >Search</button>
           </Form>
           <Nav.Link href="#action1" className="ms-2">Login</Nav.Link>
         </Navbar.Collapse>

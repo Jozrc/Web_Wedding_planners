@@ -1,11 +1,3 @@
-
-
-.imagenIndex{
-    width: 100%;
-    height: 40vh;
-    object-fit: cover;
-}
-
 .baner{
   background-image: url(C:\Users\oxiel\OneDrive\Desktop\WEB-2\front-web2\src\components\images\banmer.jpg);
   width: 100%;
@@ -21,32 +13,76 @@
     color: aliceblue;
 }
 
-.articulo {
-    margin-top: 1%;
-    margin-inline-end: 10%;
-    margin-inline-start: 10%;
-    background-color: rgba(255, 255, 255, 0.747);
+.fondo{
+    padding: 10%; /* Agrega espacio dentro del elemento en lugar de márgenes laterales */
+    background-color: rgba(255, 255, 255, 0.493);
+    backdrop-filter: blur(10px);
+    
+}
+
+.planner{
+  background-color: #ffd0c3;
+  position: relative; /* Establece el posicionamiento relativo */
+  width: 100%; /* Asegura que el contenedor ocupa todo el ancho del padre */
+  height: 320px; /* Asegura que el contenedor ocupa todo el alto del padre */
+}
+
+.imagen-planner{
+  position: absolute;
+  top: 0; /* Alinea la parte superior de la imagen con la parte superior del contenedor */
+  right: 0; /* Alinea la parte derecha de la imagen con la parte derecha del contenedor */
+  width: 50%; /* Establece el ancho de la imagen al 30% del contenedor */
+  height: 100%; /* Asegura que la imagen ocupe todo el alto del contenedor */
+  object-fit: cover; /* Ajusta la imagen para que cubra el espacio del contenedor sin distorsionarla */
+
+}
+
+.titulo-planner{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  color: #8b6359;
+  width: 50%; /* Establece el ancho del texto al 50% del contenedor */
+  padding: 10px;
+  text-align: center;
+}
+
+.descripcion {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 50%; /* Establece el ancho del texto al 50% del contenedor */
+  padding: 10px;
+  box-sizing: border-box; /* Asegura que el espaciado interior esté incluido en el ancho total */
+}
+
+.button-planner {
+  width: 30%;
+  box-sizing: border-box;
+  border: none;
+  background-color: #d3694b;
+  color: white;
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-left: 10%;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.button-planner:hover {
+  background-color: hsl(27, 100%, 69%);
 }
 
 .button {
-    position:  center;
-    width: 100%;
-    border: none;
-    background-color: #d3694b;
-    color: white;
-    font-size: 1.5em; /* Aumenta el tamaño de la fuente */
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 8px;
-    border-radius: 10px; /* Agrega un radio de borde para suavizar los bordes */
-  }
-  
-  .button:hover {
-    background-color: hsl(27, 100%, 69%);
-  }
-  
-.fondo{
-    margin-inline-end: 2%;
-    margin-inline-start: 2%;
-    background-color: rgb(255, 255, 255);
+  position:  center;
+  width: 100%;
+  border: none;
+  background-color: #d3694b;
+  color: white;
+  font-size: 1.5em; /* Aumenta el tamaño de la fuente */
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  border-radius: 10px; /* Agrega un radio de borde para suavizar los bordes */
+}
+
+.button:hover {
+  background-color: hsl(27, 100%, 69%);
 }
