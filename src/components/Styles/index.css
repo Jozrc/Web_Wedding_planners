@@ -25,6 +25,7 @@
   position: relative; /* Establece el posicionamiento relativo */
   width: 100%; /* Asegura que el contenedor ocupa todo el ancho del padre */
   height: 320px; /* Asegura que el contenedor ocupa todo el alto del padre */
+  margin-top: 10%;
 }
 
 .imagen-planner{
