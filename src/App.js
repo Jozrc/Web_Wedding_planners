@@ -2,6 +2,7 @@ import Index from "./components/index.jsx";
 import NavbarReact from "./components/nav.jsx";
 import Login from "./components/login.jsx";
 import Register from "./components/register.jsx";
+import Footer from "./components/footer.jsx";
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -15,6 +16,9 @@ function App() {
   // Mostrar NavbarReact solo si no estás en la página de inicio de sesión o registro
   const showNavbar = !isLoginPage && !isRegisterPage;
 
+  // Mostrar Footer solo si no estás en la página de inicio de sesión o registro
+  const showFooter = !isLoginPage && !isRegisterPage;
+
   return (
     <div className="App">
       {/* Renderizar NavbarReact solo si no estás en la página de inicio de sesión */}
@@ -24,6 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+
+      {showFooter && <Footer />}
     </div>
   );
 }
