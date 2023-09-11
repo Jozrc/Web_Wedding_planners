@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import miImagen from "./images/banmer.jpg";
 import Imagenlogo from "./images/register.png";
 import './Styles/index.css';
@@ -53,7 +54,8 @@ function HeaderAndFooterExample() {
      de wedding planners. Esta es una celebración única y personalizada que marca el inicio de una vida
      juntos llena de amor y promesas. En "Amor Eterno", creamos un entorno encantador donde los sueños se
      hacen realidad y los corazones se unen en un día inolvidable.</p>
-     <button className="button-planner">Ver más</button>
+     <Link to="/planner"><button className="button-planner">Ver más</button></Link>
+     
      
      </div>
 
@@ -74,7 +76,7 @@ function HeaderAndFooterExample() {
      de wedding planners. Esta es una celebración única y personalizada que marca el inicio de una vida
      juntos llena de amor y promesas. En "Amor Eterno", creamos un entorno encantador donde los sueños se
      hacen realidad y los corazones se unen en un día inolvidable.</p>
-     <button className="button-planner">Ver más</button>
+     <Link to="/planner"><button className="button-planner">Ver más</button></Link>
      
      </div>
 

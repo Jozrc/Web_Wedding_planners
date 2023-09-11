@@ -3,6 +3,7 @@ import NavbarReact from "./components/nav.jsx";
 import Login from "./components/login.jsx";
 import Register from "./components/register.jsx";
 import Footer from "./components/footer.jsx";
+import Planner from "./components/planner.jsx";
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -25,6 +26,7 @@ function App() {
       {showNavbar && <NavbarReact />}
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/planner" element={<Planner />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
