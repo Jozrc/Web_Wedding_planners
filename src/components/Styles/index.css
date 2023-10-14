@@ -52,7 +52,7 @@
   background-color: #ffd0c3;
   position: relative; /* Establece el posicionamiento relativo */
   width: 100%; /* Asegura que el contenedor ocupa todo el ancho del padre */
-  height: 320px; /* Asegura que el contenedor ocupa todo el alto del padre */
+  height: auto; 
   margin-top: 10%;
   border-radius: 15px;
   bottom: 140px;
@@ -76,6 +76,7 @@
   right: 0; /* Alinea la parte derecha de la imagen con la parte derecha del contenedor */
   width: 50%; /* Establece el ancho de la imagen al 30% del contenedor */
   height: 100%; /* Asegura que la imagen ocupe todo el alto del contenedor */
+  border-radius: 20px;
   object-fit: cover; /* Ajusta la imagen para que cubra el espacio del contenedor sin distorsionarla */
   transition: transform 0.5s;
 }
@@ -89,9 +90,19 @@
   text-align: center;
 }
 
+.subtitulo-planner{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  color: #d4664b;
+  width: 50%; /* Establece el ancho del texto al 50% del contenedor */
+  padding: 10px;
+  text-align: center;
+}
+
 .descripcion {
   font-family: Arial, Helvetica, sans-serif;
   width: 50%; /* Establece el ancho del texto al 50% del contenedor */
+  text-align: center;
   padding: 10px;
   box-sizing: border-box; /* Asegura que el espaciado interior esté incluido en el ancho total */
 }
@@ -105,6 +116,7 @@
   font-size: 1.5em;
   font-weight: 500;
   margin-left: 17%;
+  margin-bottom: 5%;
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 2px 2px 1px rgb(68, 56, 49);
