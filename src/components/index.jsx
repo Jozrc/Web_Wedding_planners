@@ -49,11 +49,14 @@ function HeaderAndFooterExample() {
      </div>
 
      <h1 className="titulo-planner">Titulo-Nombre</h1>
-     <p className="descripcion">Descripcion: 
+     <h5 className="subtitulo-planner">Informacion de la boda:</h5>
+     <p className="descripcion">
      Bienvenidos a "Amor Eterno", un evento mágico diseñado y coordinado por nuestro experimentado equipo
-     de wedding planners. Esta es una celebración única y personalizada que marca el inicio de una vida
-     juntos llena de amor y promesas. En "Amor Eterno", creamos un entorno encantador donde los sueños se
-     hacen realidad y los corazones se unen en un día inolvidable.</p>
+     de wedding planners.</p>
+     <h5 className="subtitulo-planner">Costo</h5>
+     <p className="descripcion">
+      5000$
+     </p>
      <Link to="/planner"><button className="button-planner">Ver más</button></Link>
      
      
@@ -71,11 +74,14 @@ function HeaderAndFooterExample() {
      </div>
 
      <h1 className="titulo-planner">Titulo-Nombre</h1>
-     <p className="descripcion">Descripcion: 
+     <h5 className="subtitulo-planner">Informacion de la boda:</h5>
+     <p className="descripcion">
      Bienvenidos a "Amor Eterno", un evento mágico diseñado y coordinado por nuestro experimentado equipo
-     de wedding planners. Esta es una celebración única y personalizada que marca el inicio de una vida
-     juntos llena de amor y promesas. En "Amor Eterno", creamos un entorno encantador donde los sueños se
-     hacen realidad y los corazones se unen en un día inolvidable.</p>
+     de wedding planners.</p>
+     <h5 className="subtitulo-planner">Costo</h5>
+     <p className="descripcion">
+      5000$
+     </p>
      <Link to="/planner"><button className="button-planner">Ver más</button></Link>
      
      </div>
