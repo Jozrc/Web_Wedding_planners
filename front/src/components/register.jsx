@@ -25,7 +25,7 @@ const Register = () => {
               <input type="text" className="inputField2" />
             </div>
     
-            <h5 className="user-passw">Gmail</h5>
+            <h5 className="user-passw">Email</h5>
             <div className="inputContainer">
               <input type="gmail" className="inputField" />
             </div>
