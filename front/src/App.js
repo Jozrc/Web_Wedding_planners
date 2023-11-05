@@ -9,7 +9,7 @@ import Chat from "./components/chat.jsx";
 import Historial from "./components/historial.jsx"
 import Carrito from "./components/carrito.jsx";
 import Compra from  "./components/compra.jsx";
-import EditUser from "./components/updateUser.jsx";
+import EditUser from "./components/editUser.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
