@@ -5,23 +5,57 @@ import './Styles/login.css';
 import miImagenR from "./images/register.png";
 import axios from 'axios';
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies;
+let idUser = -1, cuenta = 0;
 
 
 
-const Register = () => {
-
-  const [nomUser, setnomUser] = useState([]);
+const EditUser = () => {
+  const [nomUser, setnomUser] = useState();
   const [apePUser, setapePUser] = useState([]);
   const [apeMUser, setapeMUser] = useState([]);
-  const [email, setemail] = useState([]);
-  const [pass, setpass] = useState([]);
+  const [email, setemail] = useState();
+  const [pass, setpass] = useState();
   const [username, setUsername] = useState([]);
-  const [tel, setTel] = useState([]);
-  const [fechaNac, setfechaNac] = useState([]);
+  const [tel, setTel] = useState();
+  const [fechaNac, setfechaNac] = useState();
 
+  const buscarUsuario = () => {
+    axios.post("http://localhost:3001/profile", {
+      idUser: idUser,
+    }).then((response)=>{
+        if(response.data.length > 0){
+            var respuesta = response.data[0];
 
-  const agregar = () => {
-    axios.post("http://localhost:3001/create", {
+            setnomUser(respuesta.Nombre_Usuario);
+            setapePUser(respuesta.Apellido_Paterno_Usuario);
+            setapeMUser(respuesta.Apellido_Materno_Usuario);
+            setemail(respuesta.Correo_Usuario);
+            setpass(respuesta.Contrasenia_Usuario);
+            setUsername(respuesta.Username);
+            setTel(respuesta.Telefono_Usuario);
+            setfechaNac(respuesta.Fecha_Nacimiento);
+        };
+    })
+  };
+
+  if(cookies.get('idUser') == null){
+    window.location.href="./";
+    return;
+  }
+  else{
+    idUser = cookies.get('idUser');
+    
+    if(cuenta !=1){
+      buscarUsuario();
+      cuenta = 1;
+    }
+  }
+
+  const editar = () => {
+    axios.post("http://localhost:3001/editarUser", {
+      idUsuario: idUser,
       nombreUsuario: nomUser,
       apellidoPUsuario: apePUser,
       apellidoMUsuario: apeMUser,
@@ -32,7 +66,7 @@ const Register = () => {
       fechaNacUsuario: fechaNac
 
     }).then(()=>{
-      alert("Informacion enviada");
+       //alert("Informacion enviada");
     }
 
   )};
@@ -46,7 +80,7 @@ const Register = () => {
           <img src={miImagenR} alt="Descripción de la imagen" className="imagen-izquierdaR"/>
   
           <form action="" className="form_main2">
-            <h1 className="heading2">Register</h1>
+            <h1 className="heading2">Edit User</h1>
   
             <div className="user-passw-container">
             <h5 className="user-passw">First Name</h5>
@@ -60,7 +94,7 @@ const Register = () => {
               <input type="text" className="inputField2" value={apePUser}
             onChange={(e) => {setapePUser(e.target.value)}}/>
 
-            <input type="text" className="inputField2" value={apeMUser}
+              <input type="text" className="inputField2" value={apeMUser}
             onChange={(e) => {setapeMUser(e.target.value)}}/>
             </div>
     
@@ -81,11 +115,10 @@ const Register = () => {
               <h5 className="user-passw">Username</h5>
             </div>
 
-            
             <div className="inputContainer">
               <input type="gmail" className="inputField4" value={tel}
             onChange={(e) => {setTel(e.target.value)}}/>
-            <input type="text" className="inputField4" value={username}
+              <input type="text" className="inputField4" value={username}
             onChange={(e) => {setUsername(e.target.value)}}/>
             </div>
     
@@ -100,9 +133,8 @@ const Register = () => {
             </div>
 
             
-            <Link to="/"><button className="button" onClick={agregar}>Submit</button></Link>
-            <p className="dont-account">Do you already have an account? </p>
-            <Link to="/login" className="RegisterLink">Log in</Link>
+            <Link to="/perfil"><button className="button" onClick={editar}>Submit</button></Link>
+            <Link to="/perfil"><button className="button" >Cancel</button></Link>
   
           </form>
         </div>
@@ -112,4 +144,4 @@ const Register = () => {
     );
   };
   
-  export default Register;
+  export default EditUser;

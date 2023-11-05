@@ -3,9 +3,21 @@ import { Link } from 'react-router-dom';
 import miImagen from "./images/banmer.jpg";
 import Imagenlogo from "./images/register.png";
 import './Styles/index.css';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies;
+let idUser = -1;
 
 
 function HeaderAndFooterExample() {
+  //Verificar si existe un usuario logueado
+  if(cookies.get('idUser') != null){
+    idUser = cookies.get('idUser');
+    console.log("idUsuario: " + idUser);
+  }
+  else{
+    idUser = -1;
+  }
+
 
   const [ampliarImagen1, setAmpliarImagen1] = useState(false);
   const [ampliarImagen2, setAmpliarImagen2] = useState(false);

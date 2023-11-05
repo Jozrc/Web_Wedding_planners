@@ -4,21 +4,41 @@ import './Styles/login.css';
 import miImagen from "./images/login.png";
 import axios from 'axios';
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies;
+
 const Login = () => {
 
   const [email, setemail] = useState([]);
   const [pass, setpass] = useState([]);
+
+  if(cookies.get('idUser') != null){
+    window.location.href="./";
+    return;
+  }
 
   const buscarUsuario = () => {
     axios.post("http://localhost:3001/login", {
       correo: email,
       contra: pass
 
-    }).then(()=>{
-      alert("Informacion enviada");
-    }
-
-  )};
+    }).then((response)=>{
+      return response.data;
+    })
+    .then((response)=>{
+      //alert(response.data);
+      var respuesta = response;
+      if (respuesta.mensaje == "Usuario Encontrado"){
+        cookies.set('idUser', respuesta.idUsuario, {path: "/"})
+        alert("Bienvenido " + respuesta.Username );
+        window.location.href="./";
+      }
+      else{
+        alert("Usuario no encontrado " + respuesta.mensaje);
+      }
+    })
+  
+  };
 
 
     return (

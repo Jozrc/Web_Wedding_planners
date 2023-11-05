@@ -8,8 +8,29 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Styles/login.css';
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies;
+let idUser = -1;
+let button;
+
+function cerrarSesion(){
+  cookies.remove('idUser', {path: "/"});
+}
+
 function NavScrollExample() {
+  //Verificar si existe un usuario logueado
+  if(cookies.get('idUser') != null){
+    idUser = cookies.get('idUser');
+    button = <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Logout</Nav.Link>;
+    //console.log("idUsuario: " + idUser);
+  }
+  else{
+    idUser = -1;
+    button = <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Login</Nav.Link>;
+  }
+
   return (
+    
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
         <Navbar.Brand href="/" className="Nav-titulo">Wedding planner</Navbar.Brand>
@@ -41,10 +62,18 @@ function NavScrollExample() {
             />
             <button className="button-search" >Search</button>
           </Form>
+
+          {}
+
+          {idUser != -1? 
+            <Nav.Link href="/" onClick={cerrarSesion} className="ms-2" style={{ color: "red" }}>Logout</Nav.Link>  
+          : 
           <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Login</Nav.Link>
+          }
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    
   );
 }
 

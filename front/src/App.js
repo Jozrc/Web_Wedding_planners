@@ -9,6 +9,7 @@ import Chat from "./components/chat.jsx";
 import Historial from "./components/historial.jsx"
 import Carrito from "./components/carrito.jsx";
 import Compra from  "./components/compra.jsx";
+import EditUser from "./components/updateUser.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,12 +20,13 @@ function App() {
   // Verificar si la ruta actual es
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
+  const isEditPage = location.pathname === "/editUser";
 
   // Mostrar NavbarReact solo si no estás en la página de inicio de sesión o registro
-  const showNavbar = !isLoginPage && !isRegisterPage;
+  const showNavbar = !isLoginPage && !isRegisterPage && !isEditPage;
 
   // Mostrar Footer solo si no estás en la página de inicio de sesión o registro
-  const showFooter = !isLoginPage && !isRegisterPage;
+  const showFooter = !isLoginPage && !isRegisterPage && !isEditPage;
 
   return (
     <div className="App">
@@ -35,6 +37,7 @@ function App() {
         <Route path="/planner" element={<Planner />} />
         <Route path="/login" element={<Login />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/editUser" element={<EditUser />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/register" element={<Register />} />
         <Route path="/historial" element={<Historial />} />

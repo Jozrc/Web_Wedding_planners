@@ -85,7 +85,7 @@ DELIMITER //
 CREATE PROCEDURE SP_MostrarUsuario(IN idusuario1 INT)
 BEGIN
 	SELECT idUsuario, Nombre_Usuario, Apellido_Paterno_Usuario, Apellido_Materno_Usuario, Correo_Usuario, Contrasenia_Usuario, Username, 
-Estado_Usuario, Telefono_Usuario, Rol_User, Genero, Fecha_Nacimiento, Fecha_Registro, Fecha_Modificacion FROM usuario WHERE idUsuario = idusuario1;
+Estado_Usuario, Telefono_Usuario, Rol_User, Genero, DATE_FORMAT(Fecha_Nacimiento, '%Y-%m-%d') AS Fecha_Nacimiento, Fecha_Registro, Fecha_Modificacion FROM usuario WHERE idUsuario = idusuario1;
 END//
 DELIMITER ;
 
@@ -100,7 +100,7 @@ BEGIN
 	DECLARE Mensaje VARCHAR(500);
     SET @Mensaje  = '';
     
-	IF EXISTS(select idUsuario AS idUser FROM usuario WHERE Correo_Usuario = _correo_usuario AND Contrasenia_Usuario = _contrasenia_usuario) THEN 
+	IF EXISTS(select idUsuario AS idUser FROM usuario WHERE Correo_Usuario = _correo_usuario AND Contrasenia_Usuario = _contrasenia_usuario  AND Estado_Usuario =1) THEN 
         SET @Mensaje = 'Usuario encontrado';
 		select @Mensaje as mensaje, idUsuario, Username FROM usuario WHERE Correo_Usuario = _correo_usuario AND Contrasenia_Usuario = _contrasenia_usuario;
 	ELSE

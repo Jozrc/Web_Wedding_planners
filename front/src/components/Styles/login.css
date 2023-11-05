@@ -119,6 +119,34 @@ body{
   }
 
   .inputField2 {
+    width: 102px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #bd8860;
+    margin: 5px 8px;
+    color: rgb(125, 125, 125);
+    font-size: 1em;
+    font-weight: 500;
+    box-sizing: border-box;
+    border-radius: 8px; /* Añade bordes redondeados */
+    outline: none; /* Elimina el resplandor azul del enfoque */
+  }
+
+  .inputField3 {
+    width: 163px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #bd8860;
+    margin: 5px 8px;
+    color: rgb(125, 125, 125);
+    font-size: 1em;
+    font-weight: 500;
+    box-sizing: border-box;
+    border-radius: 8px; /* Añade bordes redondeados */
+    outline: none; /* Elimina el resplandor azul del enfoque */
+  }
+
+  .inputField4 {
     width: 163px;
     height: 30px;
     background-color: white;
