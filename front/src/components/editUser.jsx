@@ -6,7 +6,7 @@ import miImagenR from "./images/register.png";
 import axios from 'axios';
 
 import Cookies from 'universal-cookie';
-const cookies = new Cookies;
+const cookies = new Cookies();
 let idUser = -1, cuenta = 0;
 
 
@@ -47,7 +47,7 @@ const EditUser = () => {
   else{
     idUser = cookies.get('idUser');
     
-    if(cuenta !=1){
+    if(cuenta !==1){
       buscarUsuario();
       cuenta = 1;
     }

@@ -5,7 +5,7 @@ import miImagen from "./images/login.png";
 import axios from 'axios';
 
 import Cookies from 'universal-cookie';
-const cookies = new Cookies;
+const cookies = new Cookies();
 
 const Login = () => {
 
@@ -28,7 +28,7 @@ const Login = () => {
     .then((response)=>{
       //alert(response.data);
       var respuesta = response;
-      if (respuesta.mensaje == "Usuario Encontrado"){
+      if (respuesta.mensaje === "Usuario Encontrado"){
         cookies.set('idUser', respuesta.idUsuario, {path: "/"})
         alert("Bienvenido " + respuesta.Username );
         window.location.href="./";

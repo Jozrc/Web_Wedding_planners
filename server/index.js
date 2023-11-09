@@ -114,6 +114,52 @@ app.post("/deleteUser", (req, resp) => {
 });
 
 
+app.post("/sendMessage", (req, resp) => {
+    const idUsuarioEmisor= req.body.idUsuarioE;
+    const idUsuarioReceptor= req.body.idUsuarioR;
+    const mensaje= req.body.mensaje;
+
+    db.query('CALL SP_EnviarMensaje(?,?,?)',
+    [idUsuarioEmisor, idUsuarioReceptor, mensaje],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send("Mensaje enviado con exito");
+        }
+    });
+});
+
+app.post("/MostrarMensajes", (req, resp) => {
+    const idUsuarioEmisor= req.body.idUsuarioE;
+    const idUsuarioReceptor= req.body.idUsuarioR;
+
+    db.query('CALL SP_MostrarMensajes(?,?)',
+    [idUsuarioEmisor, idUsuarioReceptor],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarChats", (req, resp) => {
+    const idUsuarioReceptor= req.body.idUsuarioR;
+
+    db.query('CALL SP_MostrarChats(?)',
+    [idUsuarioReceptor],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send(result);
+        }
+    });
+});
+
+
 app.listen(3001, ()  =>{
     console.log("escuchando en el puerto 3001");
 });

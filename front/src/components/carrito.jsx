@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import './Styles/carrito.css';
 import imgCarrito from "./images/anillos2.jpg"
 

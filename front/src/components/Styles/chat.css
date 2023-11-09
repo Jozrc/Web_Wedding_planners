@@ -110,9 +110,19 @@
       gap: 10px;
 
       .imgIcon {
-        height: 24px;
+        height: 24px;border-bottom: 1px solid rgb(0, 0, 0);
         cursor: pointer;
       }
+    }
+
+    .messageList {
+      overflow: scroll;
+      padding: 10px;
+      height: calc(100% - 225px);
+    }
+
+    .chats {
+      border-bottom: 1px solid rgb(0, 0, 0);
     }
 
     .messages {

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import miImagen from "./images/banmer.jpg";
-import Imagenlogo from "./images/register.png";
 import './Styles/index.css';
 import Cookies from 'universal-cookie';
-const cookies = new Cookies;
+const cookies = new Cookies();
 let idUser = -1;
 
 

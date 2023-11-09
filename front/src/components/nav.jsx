@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -9,20 +7,21 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Styles/login.css';
 
 import Cookies from 'universal-cookie';
-const cookies = new Cookies;
+const cookies = new Cookies();
 let idUser = -1;
-let button;
+
 
 function cerrarSesion(){
   cookies.remove('idUser', {path: "/"});
 }
 
 function NavScrollExample() {
+  let button;
   //Verificar si existe un usuario logueado
   if(cookies.get('idUser') != null){
     idUser = cookies.get('idUser');
     button = <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Logout</Nav.Link>;
-    //console.log("idUsuario: " + idUser);
+    console.log("idUsuario: " + idUser);
   }
   else{
     idUser = -1;
@@ -65,7 +64,7 @@ function NavScrollExample() {
 
           {}
 
-          {idUser != -1? 
+          {idUser !== -1? 
             <Nav.Link href="/" onClick={cerrarSesion} className="ms-2" style={{ color: "red" }}>Logout</Nav.Link>  
           : 
           <Nav.Link href="/login" className="ms-2" style={{ color: "red" }}>Login</Nav.Link>

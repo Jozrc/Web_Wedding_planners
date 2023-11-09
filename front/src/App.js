@@ -10,6 +10,7 @@ import Historial from "./components/historial.jsx"
 import Carrito from "./components/carrito.jsx";
 import Compra from  "./components/compra.jsx";
 import EditUser from "./components/editUser.jsx";
+import Profile from "./components/profile.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/compra" element={<Compra />} />
+        <Route path='/profile/:idUser/:userName' element={<Profile/>}> </Route>
       </Routes>
 
       {showFooter && <Footer />}
