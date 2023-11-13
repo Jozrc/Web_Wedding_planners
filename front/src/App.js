@@ -11,6 +11,7 @@ import Carrito from "./components/carrito.jsx";
 import Compra from  "./components/compra.jsx";
 import EditUser from "./components/editUser.jsx";
 import Profile from "./components/profile.jsx";
+import RegPaquete from "./components/regPaquete.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -35,15 +36,16 @@ function App() {
       {showNavbar && <NavbarReact />}
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/planner" element={<Planner />} />
+        <Route path="/planner/:idPaquete" element={<Planner />} />
         <Route path="/login" element={<Login />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/editUser" element={<EditUser />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/register" element={<Register />} />
         <Route path="/historial" element={<Historial />} />
-        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/carrito/:idPaquete" element={<Carrito />} />
         <Route path="/compra" element={<Compra />} />
+        <Route path="/regPaquete" element={<RegPaquete />} />
         <Route path='/profile/:idUser/:userName' element={<Profile/>}> </Route>
       </Routes>
 

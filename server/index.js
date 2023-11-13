@@ -30,7 +30,7 @@ app.post("/create", (req, resp) => {
         if(err){
             console.log(err);
         }else{
-            resp.send("Empleado registrao con exito");
+            resp.send("Empleado registrado con exito");
         }
     });
 });
@@ -159,6 +159,67 @@ app.post("/MostrarChats", (req, resp) => {
     });
 });
 
+app.post("/regPaquetes", (req, resp) => {
+    const TituloPaq = req.body.TituloPaq;
+    const DescripcionPaq= req.body.DescripcionPaq;
+    const PrecioPaq= req.body.PrecioPaq;
+    const CreadorPaq= req.body.CreadorPaq;
+    const Correo= req.body.Correo;
+    const Telefono= req.body.Telefono;
+    const NumPerso= req.body.NumPerso;
+    const CategoriaPaq= req.body.CategoriaPaq;
+    const ServicioPaq= req.body.ServicioPaq;
+
+    db.query('CALL SP_RegPaquete(?,?,?,?,?)',
+    [TituloPaq, DescripcionPaq, PrecioPaq, CreadorPaq, NumPerso],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            let resultado = JSON.parse(JSON.stringify(result[0]));
+            resultado = resultado[0];
+
+            CategoriaPaq.map((valor) =>{                
+                db.query('CALL SP_RegCategoriaPaquete(?,?)',
+                [valor.value, resultado.Last_ID],
+                (err, result) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            })
+
+            resp.send(resultado);
+        }
+    });
+});
+
+app.get("/MostrarPaquetes", (req, resp) => {
+
+    db.query('CALL SP_MostrarPaquetes()',
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarPaqueteByID", (req, resp) => {
+    const idPaquete = req.body.idPaquete;
+
+    db.query('CALL SP_MostrarPaqueteByID(?)',
+    [idPaquete],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
 
 app.listen(3001, ()  =>{
     console.log("escuchando en el puerto 3001");

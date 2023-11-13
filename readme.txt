@@ -18,6 +18,8 @@ npm install cors
 
 npm install universal-cookie
 
+npm install react-select
+
 npm start
 
 

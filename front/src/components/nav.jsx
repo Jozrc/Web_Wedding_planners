@@ -50,6 +50,11 @@ function NavScrollExample() {
               <NavDropdown.Item href="/chat">
                 Chats
               </NavDropdown.Item>
+
+              <NavDropdown.Item href="/regPaquete">
+                Agregar Paquete
+              </NavDropdown.Item>
+
             </NavDropdown>
           </Nav>
           <Form className="d-flex">

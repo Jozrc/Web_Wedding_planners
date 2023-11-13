@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `Paquete` (
   `Titulo_Paquete` VARCHAR(45) NOT NULL,
   `Descripcion_Paquete` VARCHAR(200) NOT NULL,
   `Fecha_Registro_Paquete` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `EstadoPaquete` TINYINT NOT NULL,
+  `EstadoPaquete` TINYINT DEFAULT 1,
   `Precio_Paquete` DECIMAL(10,2) NOT NULL,
   `Creador_Paquete` INT NOT NULL,
   `ImagenPaquete` LONGBLOB NULL DEFAULT NULL,
