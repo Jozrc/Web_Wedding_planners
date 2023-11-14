@@ -167,7 +167,6 @@ app.post("/regPaquetes", (req, resp) => {
     const Correo= req.body.Correo;
     const Telefono= req.body.Telefono;
     const NumPerso= req.body.NumPerso;
-    const CategoriaPaq= req.body.CategoriaPaq;
     const ServicioPaq= req.body.ServicioPaq;
 
     db.query('CALL SP_RegPaquete(?,?,?,?,?)',
@@ -179,7 +178,7 @@ app.post("/regPaquetes", (req, resp) => {
             let resultado = JSON.parse(JSON.stringify(result[0]));
             resultado = resultado[0];
 
-            CategoriaPaq.map((valor) =>{                
+            ServicioPaq.map((valor) =>{                
                 db.query('CALL SP_RegCategoriaPaquete(?,?)',
                 [valor.value, resultado.Last_ID],
                 (err, result) =>{
@@ -210,6 +209,104 @@ app.post("/MostrarPaqueteByID", (req, resp) => {
     const idPaquete = req.body.idPaquete;
 
     db.query('CALL SP_MostrarPaqueteByID(?)',
+    [idPaquete],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarServiciosByPaqueteID", (req, resp) => {
+    const idPaquete = req.body.idPaquete;
+
+    db.query('CALL SP_MostrarServiciosByPaqueteID(?)',
+    [idPaquete],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.get("/MostrarServicios", (req, resp) => {
+
+    db.query('CALL SP_MostrarCategoria()',
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/regCompraPaquete", (req, resp) => {
+    const idPaquete = req.body.idPaquete;
+    const idCliente = req.body.idCliente;
+    const FechaEvento = req.body.FechaEvento;
+    const HoraEvento = req.body.HoraEvento;
+    const NombreCliente = req.body.NombreCliente;
+    const CorreoCliente = req.body.CorreoCliente;
+    const TelefonoCliente = req.body.TelefonoCliente;
+    const NumPersonas = req.body.NumPersonas;
+    const Comentarios = req.body.Comentarios;
+    const PrecioPagado = req.body.PrecioPagado;
+
+    db.query('CALL SP_RegCompraPaquete(?,?,?,?,?,?,?,?,?,?)',
+    [idPaquete, idCliente, FechaEvento, HoraEvento, NombreCliente, CorreoCliente, TelefonoCliente, NumPersonas, Comentarios, PrecioPagado],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            //resultado = resultado[0];
+
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarPaquetesComprados", (req, resp) => {
+    const idUser = req.body.idUser;
+
+    db.query('CALL SP_MostrarPaquetesComprados(?)',
+    [idUser],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarPaquetesVendidos", (req, resp) => {
+    const idUser = req.body.idUser;
+
+    db.query('CALL SP_MostrarPaquetesVendidos(?)',
+    [idUser],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarPaquetesVendidosByID", (req, resp) => {
+    const idPaquete = req.body.idPaquete;
+
+    db.query('CALL SP_MostrarPaqueteVendidoByID(?)',
     [idPaquete],
     (err, result) =>{
         if(err){

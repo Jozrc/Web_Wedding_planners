@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `Paquete` (
   `Fecha_Registro_Paquete` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `EstadoPaquete` TINYINT DEFAULT 1,
   `Precio_Paquete` DECIMAL(10,2) NOT NULL,
+  `Capacidad` INT NOT NULL,
   `Creador_Paquete` INT NOT NULL,
   `ImagenPaquete` LONGBLOB NULL DEFAULT NULL,
   PRIMARY KEY (`idPaquete`),
@@ -186,13 +187,15 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `PaqueteComprado` (
   `IdPaqueteComprado` INT NOT NULL AUTO_INCREMENT,
   `FechaCompra` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `FechaEvento` TIMESTAMP NOT NULL,
+  `FechaEvento` DATE NOT NULL,
+  `HoraEvento` TIME NOT NULL,
   `IdPaquete` INT NOT NULL,
   `IdUser` INT NOT NULL,
   `Calificacion` TINYINT DEFAULT -1,
   `PrecioPagado` DECIMAL(10,2) NOT NULL,
   `FormaPago` TINYINT DEFAULT 0,
   `Invitados` INT NOT NULL,
+  `Comentarios` VARCHAR(200) NOT NULL,
   
   PRIMARY KEY (`IdPaqueteComprado`),
   

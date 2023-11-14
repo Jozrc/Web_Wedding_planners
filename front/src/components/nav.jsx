@@ -44,6 +44,7 @@ function NavScrollExample() {
             <Nav.Link href="/perfil">Profile</Nav.Link>
             <NavDropdown title="Más" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/compra">Compras</NavDropdown.Item>
+              <NavDropdown.Item href="/venta">Ventas</NavDropdown.Item>
               <NavDropdown.Item href="/historial">
                 Historial de Pagos
               </NavDropdown.Item>

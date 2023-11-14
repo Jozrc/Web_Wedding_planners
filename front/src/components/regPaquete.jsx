@@ -6,11 +6,12 @@ import imgCarrito from "./images/anillos2.jpg"
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
-let idUser = -1;
+let idUser = -1, paso = false;
 
 const RegPaquete = () => {
-  const [CategoriaSelectedOptions, setCategoriaSelectedOptions] = useState([]);
   const [ServicioSelectedOptions, setServicoSelectedOptions] = useState([]);
+
+  const [listaServicios, setListaServicios] = useState([]);
 
   const [TituloPaq, setTituloPaq] = useState('');
   const [DescripcionPaq, setDescripcionPaq] = useState('');
@@ -19,33 +20,35 @@ const RegPaquete = () => {
   const [Telefono, setTelefono] = useState('');
   const [NumPerso, setNumPerso] = useState('');
 
+  const mostrarServicios = () => {
+    axios.get("http://localhost:3001/MostrarServicios", {
+    }).then((response)=>{
+      if(response.data[0].length > 0){
+        setListaServicios(response.data[0]);
+      };
+    }
+  )};
+
   if(cookies.get('idUser') == null){
     window.location.href="./";
     return;
   }
   else{
       idUser = cookies.get('idUser');
+      if(!paso){
+        mostrarServicios();
+        paso = true;
+      }
   }
-
-  const handleSelectCategoriaChange = (selected) => {
-    setCategoriaSelectedOptions(selected);
-    console.log(CategoriaSelectedOptions);
-  };
 
   const handleSelectServicioChange = (selected) => {
     setServicoSelectedOptions(selected);
-    console.log(ServicioSelectedOptions);
   };
 
-  const optionsCategoria = [
-    { value: 1, label: 'Opción 1' },
-    { value: 2, label: 'Opción 2' }
-  ];
-
-  const optionsServicio = [
-    { value: 'opcion1', label: 'Opción 1' },
-    { value: 'opcion2', label: 'Opción 2' }
-  ];
+  const optionsServicio = listaServicios.map((opcion) => ({
+    value: opcion.idCategoria,
+    label: opcion.Nombre_categoria,
+  }));
 
   const registrarPaquete = () => {
     axios.post("http://localhost:3001/regPaquetes", {
@@ -56,7 +59,6 @@ const RegPaquete = () => {
       Correo: Correo,
       Telefono: Telefono,
       NumPerso: NumPerso,
-      CategoriaPaq:CategoriaSelectedOptions,
       ServicioPaq:ServicioSelectedOptions
     }).then((response)=>{
       alert("Paquete Registrado");
@@ -83,9 +85,6 @@ const RegPaquete = () => {
 
     <p className="txtCarrito"><strong>Servicios que incluye el paquete:</strong> </p>
       <Select isMulti options={optionsServicio} placeholder="Selecciona un servicio" onChange={handleSelectServicioChange} className="categorie" />
-
-    <p className="txtCarrito"><strong>Categoria a la que corresponde:</strong> </p>
-      <Select isMulti options={optionsCategoria} placeholder="Selecciona una categoría" onChange={handleSelectCategoriaChange} className="categorie" />
 
     <p className="txtCarrito"><strong>Precio del Paquete:</strong> 
         <input className="inputCarrito" type="text" placeholder="Precio del Paquete" 

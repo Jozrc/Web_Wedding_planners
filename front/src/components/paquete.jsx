@@ -10,6 +10,8 @@ const Paquete = ({paquete}) => {
         setAmpliarImagen(!ampliarImagen);
     };
 
+    let ruta;
+
     return(
         <div className="planner">
       
@@ -27,8 +29,12 @@ const Paquete = ({paquete}) => {
             <p className="descripcion">{paquete.Descripcion}</p>
             <h5 className="subtitulo-planner">Costo</h5>
             <p className="descripcion"> $ {paquete.Precio} </p>
-            <Link to={"/planner/" + paquete.id_Paquete}><button className="button-planner">Ver más</button></Link>
-            
+                {
+                    paquete.venta==true?
+                        <Link to={"/verVenta/" + paquete.id_Paquete + "/" + paquete.IdPaqueteComprado}><button className="button-planner">Ver más</button></Link>
+                    :
+                        <Link to={"/planner/" + paquete.id_Paquete}><button className="button-planner">Ver más</button></Link>
+                }
         </div>
     )
 }

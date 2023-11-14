@@ -9,6 +9,8 @@ import Chat from "./components/chat.jsx";
 import Historial from "./components/historial.jsx"
 import Carrito from "./components/carrito.jsx";
 import Compra from  "./components/compra.jsx";
+import Venta from "./components/venta.jsx";
+import VerVenta from "./components/verVenta.jsx";
 import EditUser from "./components/editUser.jsx";
 import Profile from "./components/profile.jsx";
 import RegPaquete from "./components/regPaquete.jsx";
@@ -37,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/planner/:idPaquete" element={<Planner />} />
+        <Route path="/verVenta/:idPaquete/:idPaqueteVendido" element={<VerVenta />} />
         <Route path="/login" element={<Login />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/editUser" element={<EditUser />} />
@@ -45,6 +48,7 @@ function App() {
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito/:idPaquete" element={<Carrito />} />
         <Route path="/compra" element={<Compra />} />
+        <Route path="/venta" element={<Venta />} />
         <Route path="/regPaquete" element={<RegPaquete />} />
         <Route path='/profile/:idUser/:userName' element={<Profile/>}> </Route>
       </Routes>
