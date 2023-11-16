@@ -113,6 +113,26 @@ app.post("/deleteUser", (req, resp) => {
     });
 });
 
+app.post("/deletePaquete", (req, resp) => {
+    const idPaquete= req.body.idPaquete;
+
+    db.query('CALL SP_CambiarEstadoPaquete(?)',
+    [idPaquete],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //console.log("Usuario eliminado con exito");
+            let resultado = JSON.parse(JSON.stringify(result[0]));
+            resultado = resultado[0];
+
+            //console.log(resultado.Mensaje);
+            resp.send(resultado);
+            //resp.send("Paquete eliminado con exito");
+        }
+    });
+});
+
 
 app.post("/sendMessage", (req, resp) => {
     const idUsuarioEmisor= req.body.idUsuarioE;
@@ -193,13 +213,50 @@ app.post("/regPaquetes", (req, resp) => {
     });
 });
 
-app.get("/MostrarPaquetes", (req, resp) => {
+app.post("/editPaquetes", (req, resp) => {
+    const idPaq = req.body.idPaq;
+    const TituloPaq = req.body.TituloPaq;
+    const DescripcionPaq= req.body.DescripcionPaq;
+    const PrecioPaq= req.body.PrecioPaq;
+    const CreadorPaq= req.body.CreadorPaq;
+    const Correo= req.body.Correo;
+    const Telefono= req.body.Telefono;
+    const NumPerso= req.body.NumPerso;
+    const ServicioPaq= req.body.ServicioPaq;
 
-    db.query('CALL SP_MostrarPaquetes()',
+    db.query('CALL SP_EditPaquete(?,?,?,?,?)',
+    [idPaq, TituloPaq, DescripcionPaq, PrecioPaq, NumPerso],
     (err, result) =>{
         if(err){
             console.log(err);
         }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            //resultado = resultado[0];
+
+            ServicioPaq.map((valor) =>{                
+                db.query('CALL SP_RegCategoriaPaquete(?,?)',
+                [valor.value, idPaq],
+                (err, result) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            })
+
+            resp.send("Se ha editado correctamente");
+        }
+    });
+});
+
+app.post("/MostrarPaquetes", (req, resp) => {
+    const Categoria = req.body.Categoria;
+    db.query('CALL SP_MostrarPaquetes(?)',
+    [Categoria],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(Categoria);
             resp.send(result);
         }
     });
@@ -314,6 +371,56 @@ app.post("/MostrarPaquetesVendidosByID", (req, resp) => {
         }else{
             //let resultado = JSON.parse(JSON.stringify(result[0]));
             resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarMisPaquetes", (req, resp) => {
+    const idUser = req.body.idUser;
+
+    db.query('CALL SP_MostrarMisPaquetes(?)',
+    [idUser],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/MostrarHistorialPago", (req, resp) => {
+    const idUser = req.body.idUser;
+    const idPaqueteComprado = req.body.idPaqueteComprado;
+
+    db.query('CALL SP_MostrarHistorialPagoByID(?,?)',
+    [idUser, idPaqueteComprado],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //let resultado = JSON.parse(JSON.stringify(result[0]));
+            resp.send(result);
+        }
+    });
+});
+
+app.post("/regPagoPaq", (req, resp) => {
+    const idPaqueteComprado = req.body.idPaqueteComprado;
+    const PrecioPagado= req.body.PrecioPagado;
+
+    db.query('CALL SP_RegPagoPaquete(?,?,?)',
+    [idPaqueteComprado, PrecioPagado, 0],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            //resp.send(result);
+
+            let resultado = JSON.parse(JSON.stringify(result[0]));
+            resultado = resultado[0];
+            resp.send(resultado);
         }
     });
 });

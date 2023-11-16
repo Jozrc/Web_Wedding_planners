@@ -71,3 +71,15 @@ BEGIN
 	UPDATE categoria SET EstadoCategoria = _estadocategoria WHERE idCategoria = _idcategoria;
 END//
 DELIMITER ;
+
+
+-- Procedure Mostrar Categorias
+DELIMITER //
+CREATE PROCEDURE SP_MostrarCategoria(
+
+)
+BEGIN
+    SELECT * FROM Categoria;
+
+END//
+DELIMITER ;

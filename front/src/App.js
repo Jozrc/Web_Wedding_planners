@@ -13,6 +13,7 @@ import Venta from "./components/venta.jsx";
 import VerVenta from "./components/verVenta.jsx";
 import EditUser from "./components/editUser.jsx";
 import Profile from "./components/profile.jsx";
+import MisPaquetes from "./components/misPaquetes.jsx";
 import RegPaquete from "./components/regPaquete.jsx";
 
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -40,16 +41,20 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/planner/:idPaquete" element={<Planner />} />
         <Route path="/verVenta/:idPaquete/:idPaqueteVendido" element={<VerVenta />} />
+        <Route path="/verCompra/:idPaquete/:idPaqueteComprado" element={<VerVenta />} />
         <Route path="/login" element={<Login />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/editUser" element={<EditUser />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:idUserContacto" element={<Chat />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/historial" element={<Historial />} />
+        <Route path="/historial/:idPaqueteComprado" element={<Historial />} />
         <Route path="/carrito/:idPaquete" element={<Carrito />} />
         <Route path="/compra" element={<Compra />} />
         <Route path="/venta" element={<Venta />} />
+        <Route path="/misPaquetes" element={<MisPaquetes />} />
         <Route path="/regPaquete" element={<RegPaquete />} />
+        <Route path="/editPaquete/:idPaquete" element={<RegPaquete />} />
         <Route path='/profile/:idUser/:userName' element={<Profile/>}> </Route>
       </Routes>
 

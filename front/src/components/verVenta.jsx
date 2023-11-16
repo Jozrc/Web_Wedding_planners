@@ -12,11 +12,14 @@ const VerVenta = () => {
     const params = useParams();
 
     let idPaqueteVendido = params.idPaqueteVendido;
+    let idPaqueteComprado = params.idPaqueteComprado;
     let idPaquete = params.idPaquete;
 
     const [TituloPaq, setTituloPaq] = useState('');
     const [DescripcionPaq, setDescripcionPaq] = useState('');
     const [PrecioPaq, setPrecioPaq] = useState('');
+    const [PrecioPagado, setPrecioPagado] = useState('');
+    const [Pagado, setPagado] = useState('');
     const [idCliente, setidCliente] = useState('');
     const [UserNameCliente, setUserNameCliente] = useState('');
     const [CapacidadPaq, setCapacidadPaq] = useState('');
@@ -36,7 +39,9 @@ const VerVenta = () => {
                 setDescripcionPaq(resultado.Comentarios);
                 setCapacidadPaq(resultado.Capacidad);
                 setCapacidadCliente(resultado.Invitados);
-                setPrecioPaq(resultado.PrecioPagado);
+                setPrecioPaq(resultado.PrecioPaquete);
+                setPrecioPagado(resultado.PrecioPagado);
+                setPagado(resultado.Pagado);
                 setidCliente(resultado.idUserCliente);
                 setUserNameCliente(resultado.UsernameCliente);
                 setFechaEvento(resultado.FechaEvento + " " + resultado.HoraEvento);
@@ -56,7 +61,24 @@ const VerVenta = () => {
         })
     };
 
+    const pagarPaquete = () => {
+        var precioPagar = prompt('Cuanta cantidad desea abonar?', '100.00');
+
+        axios.post("http://localhost:3001/regPagoPaq", {
+            idPaqueteComprado: idPaqueteComprado,
+            PrecioPagado: precioPagar,
+        }).then((response)=>{
+            let resultado = response.data;
+            alert(resultado.mensaje);
+        })
+
+        paso = false;
+    };
+
     if(!paso){
+        if(idPaqueteComprado!= null){
+            idPaqueteVendido = idPaqueteComprado;
+        }
         mostrarPaquete();
         paso = true;
     }
@@ -103,8 +125,14 @@ const VerVenta = () => {
     <h3 className="infoSubTitulo">Forma de pago</h3>
     <p>Mensual</p>
 
+    <h3 className="infoSubTitulo">Precio del Paquete</h3>
+    <p>$ {PrecioPaq}</p>
+
     <h3 className="infoSubTitulo">Precio Pagado</h3>
-    <p>{PrecioPaq}</p>
+    <p>$ {PrecioPagado}</p>
+
+    <h3 className="infoSubTitulo">Monto Restante</h3>
+    <p>$ {PrecioPaq - PrecioPagado}</p>
 
     <h3 className="infoSubTitulo">Fecha y Hora del Evento</h3>
     <p>{FechaHoraEvento}</p>
@@ -118,6 +146,8 @@ const VerVenta = () => {
 
 <ul className="opciones-planner">
     <Link to={"/profile/" + idCliente + "/" + UserNameCliente}><li>Contacto</li></Link>
+        {idPaqueteComprado!= null && Pagado!=1? <><Link onClick={pagarPaquete}><li>Pagar Paquete</li></Link></>:<></>}
+    <Link to={"/historial/" + (idPaqueteComprado!= null?idPaqueteComprado:idPaqueteVendido)}><li>Historial de Pagos</li></Link>
     <li>Ayuda</li>
   </ul>
 

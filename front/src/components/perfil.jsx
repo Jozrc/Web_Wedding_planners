@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
-let idUser = -1;
+let idUser = -1, paso = false;
 
 
 const Perfil = () => {
@@ -46,17 +46,20 @@ const Perfil = () => {
         }).then((response)=>{
             alert(response.data);
             cookies.remove('idUser', {path: "/"});
-            window.location.href="./";
+            window.location.href="/";
         })
     };
 
     if(cookies.get('idUser') == null){
-        window.location.href="./";
+        window.location.href="/";
         return;
     }
     else{
-        idUser = cookies.get('idUser');
-        buscarUsuario();
+        if(paso == false){
+            idUser = cookies.get('idUser');
+            buscarUsuario();
+            paso = true;
+        }
     }
 
     

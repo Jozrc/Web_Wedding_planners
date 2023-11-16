@@ -41,7 +41,7 @@ const EditUser = () => {
   };
 
   if(cookies.get('idUser') == null){
-    window.location.href="./";
+    window.location.href="/";
     return;
   }
   else{

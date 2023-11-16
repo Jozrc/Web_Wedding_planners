@@ -6,18 +6,30 @@ import miImagen from "./images/banmer.jpg";
 import './Styles/index.css';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
-let idUser = -1, paso = false;;
+let idUser = -1, paso = false, Categoria = 0;
 
 
 function HeaderAndFooterExample() {
 
   const [listaPaquetes, setListaPaquetes] = useState([]);
+  //const [Categoria, setCategoria] = useState(3);
+
+  function changeCategoria(categoria) {
+    //setCategoria(categoria);
+    Categoria = categoria
+    //mostrarPaquetes();
+    mostrarPaquetes();
+  };
 
   const mostrarPaquetes = () => {
-    axios.get("http://localhost:3001/MostrarPaquetes", {
+    axios.post("http://localhost:3001/MostrarPaquetes", {
+      Categoria: Categoria
     }).then((response)=>{
         if(response.data[0].length > 0){
             setListaPaquetes(response.data[0]);
+        }
+        else{
+          setListaPaquetes([]);
         };
     })
   };
@@ -46,10 +58,10 @@ function HeaderAndFooterExample() {
 
 <div>
   <ul className="opciones">
-    <li>Bodas</li>
-    <li>Paquetes</li>
-    <li>Ofertas</li>
-    <li>Restaurantes</li>
+    <li onClick={(e)=>changeCategoria(3)}>Ofertas</li>
+    <li onClick={(e)=>changeCategoria(2)}>AudioVisual</li>
+    <li onClick={(e)=>changeCategoria(1)}>Salones</li>
+    <li onClick={(e)=>changeCategoria(0)}>Paquetes</li>
   </ul>
 </div>
 

@@ -33,7 +33,10 @@ const Paquete = ({paquete}) => {
                     paquete.venta==true?
                         <Link to={"/verVenta/" + paquete.id_Paquete + "/" + paquete.IdPaqueteComprado}><button className="button-planner">Ver más</button></Link>
                     :
-                        <Link to={"/planner/" + paquete.id_Paquete}><button className="button-planner">Ver más</button></Link>
+                        paquete.compra==true?
+                            <Link to={"/verCompra/" + paquete.id_Paquete + "/" + paquete.IdPaqueteComprado}><button className="button-planner">Ver más</button></Link>
+                        :
+                            <Link to={"/planner/" + paquete.id_Paquete}><button className="button-planner">Ver más</button></Link>
                 }
         </div>
     )

@@ -40,11 +40,12 @@ const Carrito = () => {
   };
 
   if(cookies.get('idUser') == null){
-    window.location.href="./";
+    window.location.href="/";
     return;
   }
   else{
       idUser = cookies.get('idUser');
+      console.log(cookies.get('idUser'));
       mostrarPaquete();
   }
 
@@ -61,8 +62,8 @@ const Carrito = () => {
       Comentarios:Comentarios,
       PrecioPagado: PrecioPaq
     }).then((response)=>{
-      alert("Paquete Comprado con exito");
-      window.location.href="./compra";
+      alert("Paquete Reservado con exito");
+      window.location.href="/compra";
     }
   )};
 

@@ -8,12 +8,16 @@ import Messages from "./messages";
 import Input from "./input";
 import axios from 'axios';
 import Chats from "./chats";
+import { useParams } from 'react-router-dom';
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 let idUser = -1, paso = 0;
 
 const Chat = () => {
+    const params = useParams();
+    var idUserContacto = params.idUserContacto;
+
     const [nomUser, setnomUser] = useState();
     const [apeUser, setapeUser] = useState();
     const [username, setUsername] = useState('');
@@ -48,23 +52,36 @@ const Chat = () => {
     const sendDatos= (datos) =>{
         setChatSelect(datos.idUser);
         setUserNameChatSelect(datos.userName);
-        console.log(datos);
+    };
+
+    const sendDatosA= () =>{
+        setChatSelect(idUser);
+        setUserNameChatSelect(username);
     };
 
     if(cookies.get('idUser') == null){
-        window.location.href="./";
+        window.location.href="/";
         return;
     }
     else{
         idUser = cookies.get('idUser');
         if(paso === 0){
             buscarUsuario();
+
+            if(idUserContacto != null){
+                sendDatos({idUser:idUserContacto, userName:username});
+            }
+            else{
+                sendDatos({idUser:idUser, userName:username});
+                //sendDatosA();
+            }
             
-            
-            sendDatos({idUser:idUser, userName:username});
             paso = 1;
+
+            
+            buscarChats();
         }
-        buscarChats();
+        
     }
 
     return (
@@ -92,6 +109,7 @@ const Chat = () => {
                         <div className="userChatInfo">
                             <span>{nomUser + " " + apeUser}</span>
                         </div>
+                        <button type="button" className='btn btn-warning' onClick={sendDatosA}>Ver Chat</button>
                     </div>
                 </div>
 

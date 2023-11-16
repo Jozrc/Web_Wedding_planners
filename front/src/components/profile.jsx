@@ -42,7 +42,7 @@ const Profile = () => {
     };
 
     if(cookies.get('idUser') == null){
-        window.location.href="./";
+        window.location.href="/";
         return;
     }
     else{
@@ -60,7 +60,7 @@ const Profile = () => {
             <h4 className="NombrePerfil"> {"Correo Electronico: " + email + " Telefono: " + tel}</h4>
             <h5 className="NombrePerfil"> {"Fecha de Nacimiento: " + fechaNac}</h5>
             <div className="RedesCaja">
-            <Link to="/chat" ><button className="buttonMsg">
+            <Link to={"/chat/" + idUser} ><button className="buttonMsg">
             <span>Enviar Mensaje</span>
             <img src={[msgPerfil]} alt="Imagen" />
             </button> </Link>

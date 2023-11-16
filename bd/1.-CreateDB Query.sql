@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `Paquete` (
   `Fecha_Registro_Paquete` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `EstadoPaquete` TINYINT DEFAULT 1,
   `Precio_Paquete` DECIMAL(10,2) NOT NULL,
+  `Oferta` TINYINT DEFAULT 0,
   `Capacidad` INT NOT NULL,
   `Creador_Paquete` INT NOT NULL,
   `ImagenPaquete` LONGBLOB NULL DEFAULT NULL,
@@ -196,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `PaqueteComprado` (
   `FormaPago` TINYINT DEFAULT 0,
   `Invitados` INT NOT NULL,
   `Comentarios` VARCHAR(200) NOT NULL,
+  `Pagado` BOOL DEFAULT 0,
   
   PRIMARY KEY (`IdPaqueteComprado`),
   
@@ -208,6 +210,26 @@ CREATE TABLE IF NOT EXISTS `PaqueteComprado` (
   CONSTRAINT `User`
     FOREIGN KEY (`IdUser`)
     REFERENCES `Usuario` (`idUsuario`)
+    
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- Tabla de Pagos de Paquetes Comprados (donde se guardaran los Pagos de los Paquetes comprados de los usuarios)
+CREATE TABLE IF NOT EXISTS `PagosPaqueteComprado` (
+  `IdPagoPaquete` INT NOT NULL AUTO_INCREMENT,
+  `IdPaqueteComprado` INT NOT NULL,
+  `PrecioPagado` DECIMAL(10,2) NOT NULL,
+  `FormaPago` TINYINT DEFAULT 0,
+  `FechaPago` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  
+  PRIMARY KEY (`IdPagoPaquete`),
+  
+  INDEX `IdPaqueteComprado_index` (`IdPaqueteComprado`),
+  CONSTRAINT `PaquetePagado`
+    FOREIGN KEY (`IdPaqueteComprado`)
+    REFERENCES `PaqueteComprado` (`IdPaqueteComprado`)
     
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

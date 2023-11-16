@@ -31,7 +31,7 @@ const Login = () => {
       if (respuesta.mensaje === "Usuario Encontrado"){
         cookies.set('idUser', respuesta.idUsuario, {path: "/"})
         alert("Bienvenido " + respuesta.Username );
-        window.location.href="./";
+        window.location.href="/";
       }
       else{
         alert("Usuario no encontrado " + respuesta.mensaje);

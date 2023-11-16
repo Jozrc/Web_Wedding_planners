@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select from 'react-select';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './Styles/carrito.css';
 import imgCarrito from "./images/anillos2.jpg"
 
@@ -9,6 +10,9 @@ const cookies = new Cookies();
 let idUser = -1, paso = false;
 
 const RegPaquete = () => {
+  const params = useParams();
+  let idPaquete = params.idPaquete;
+
   const [ServicioSelectedOptions, setServicoSelectedOptions] = useState([]);
 
   const [listaServicios, setListaServicios] = useState([]);
@@ -29,20 +33,57 @@ const RegPaquete = () => {
     }
   )};
 
+  const mostrarPaquete = () => {
+    axios.post("http://localhost:3001/MostrarPaqueteByID", {
+        idPaquete: idPaquete,
+    }).then((response)=>{
+        if(response.data[0].length > 0){
+            let resultado = response.data[0];
+            resultado = resultado[0];
+
+            setTituloPaq(resultado.Titulo_Paquete);
+            setDescripcionPaq(resultado.Descripcion_Paquete);
+            setNumPerso(resultado.Capacidad);
+            setPrecioPaq(resultado.Precio_Paquete);
+            //setidCreadorPaq(resultado.Creador_Paquete);
+        };
+    })
+
+    axios.post("http://localhost:3001/MostrarServiciosByPaqueteID", {
+        idPaquete: idPaquete,
+    }).then((response)=>{
+        if(response.data[0].length > 0){
+            let resultado = response.data[0];
+
+            const optionsServicioSelected = resultado.map((opcion) => ({
+              value: opcion.idCategoria,
+              label: opcion.Nombre_categoria,
+            }));
+
+            setServicoSelectedOptions(optionsServicioSelected);
+        };
+    })
+  };
+
+
   if(cookies.get('idUser') == null){
-    window.location.href="./";
+    window.location.href="/";
     return;
   }
   else{
       idUser = cookies.get('idUser');
       if(!paso){
         mostrarServicios();
+        if(idPaquete != null){
+          mostrarPaquete();
+        }
         paso = true;
       }
   }
 
   const handleSelectServicioChange = (selected) => {
     setServicoSelectedOptions(selected);
+    console.log(selected);
   };
 
   const optionsServicio = listaServicios.map((opcion) => ({
@@ -62,9 +103,25 @@ const RegPaquete = () => {
       ServicioPaq:ServicioSelectedOptions
     }).then((response)=>{
       alert("Paquete Registrado");
-      window.location.href="./";
+      window.location.href="/";
     }
+  )};
 
+  const editarPaquete = () => {
+    axios.post("http://localhost:3001/editPaquetes", {
+      idPaq: idPaquete,
+      TituloPaq: TituloPaq,
+      DescripcionPaq: DescripcionPaq,
+      PrecioPaq: PrecioPaq,
+      CreadorPaq: idUser,
+      Correo: Correo,
+      Telefono: Telefono,
+      NumPerso: NumPerso,
+      ServicioPaq:ServicioSelectedOptions
+    }).then((response)=>{
+      alert("Paquete Editado");
+      window.location.href="/misPaquetes";
+    }
   )};
 
     return (
@@ -84,7 +141,8 @@ const RegPaquete = () => {
         value={DescripcionPaq} onChange={(e) => {setDescripcionPaq(e.target.value)}}></textarea>
 
     <p className="txtCarrito"><strong>Servicios que incluye el paquete:</strong> </p>
-      <Select isMulti options={optionsServicio} placeholder="Selecciona un servicio" onChange={handleSelectServicioChange} className="categorie" />
+      <Select isMulti options={optionsServicio} placeholder="Selecciona un servicio" 
+      value={ServicioSelectedOptions} onChange={handleSelectServicioChange} className="categorie" />
 
     <p className="txtCarrito"><strong>Precio del Paquete:</strong> 
         <input className="inputCarrito" type="text" placeholder="Precio del Paquete" 
@@ -107,7 +165,7 @@ const RegPaquete = () => {
   </div>
   
 </div>
-<button className="buttonCarrito" onClick={registrarPaquete}>Confirmar</button>
+<button className="buttonCarrito" onClick={ idPaquete==null?registrarPaquete:editarPaquete}>Confirmar</button>
 </div>
 
 

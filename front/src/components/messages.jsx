@@ -21,8 +21,10 @@ const Messages = ({user}) => {
     };
 
     if(!paso){
-        mostrarMensajes();
-        paso = false;
+        if(user.idUserE!=0){
+            mostrarMensajes();
+            //paso = true;
+        }
     }
 
     return(
