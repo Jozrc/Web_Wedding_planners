@@ -1,0 +1,103 @@
+.reservacion {
+    background-color: #f5f5f5cb  ;
+    border-radius: 50px;
+    margin: 0 auto;
+    max-width: 80%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .contenido {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+
+  .txtCarrito {
+    font-size: 16px;
+    color: #666;
+    margin: 8px 0;
+  }
+  
+  strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .datos {
+        background-color: #ff9393cb;
+        border-radius: 50px;
+        flex: 1;
+        padding: 20px;
+        width: 50%;
+        box-shadow: 0px 1px 30px 5px #5f46383f;
+        margin: 2%;
+  }
+  
+  
+  .ImgReservacion {
+    width: 50%;
+    height: 100%;
+    align-self: center;
+    margin: 2%;
+    border-radius: 30px;
+    box-shadow: 0px 1px 30px 5px #5f46383f;
+  }
+  
+  
+  .tituloCarrito {
+    text-align: center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 30px;
+    color: #f3f3f3;
+    margin-top: 0;
+  }
+
+  .subtituloCarrito {
+    text-align: center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 19px;
+    color: #313131;
+    margin-top: 0;
+  }
+  
+  /* Estilos para los inputs */
+  .inputCarrito {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Cambia el color del borde cuando el input tiene el foco */
+.inputCarrito:focus {
+  border-color: #007bff;
+  outline: none; /* Quita el contorno predeterminado del navegador */
+}
+
+.buttonCarrito {
+    margin: 2%;
+    padding: 10px 20px;
+    background-color: #da5d3e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+
+.categorie{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+  
