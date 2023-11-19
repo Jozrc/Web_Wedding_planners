@@ -27,6 +27,8 @@ const VerVenta = () => {
     const [FechaHoraEvento, setFechaEvento] = useState('');
     const [listaServicios, setListaServicios] = useState([]);
 
+    const [imagen, setImagen] = useState();
+
     const mostrarPaquete = () => {
         axios.post("http://localhost:3001/MostrarPaquetesVendidosByID", {
             idPaquete: idPaqueteVendido,
@@ -45,6 +47,7 @@ const VerVenta = () => {
                 setidCliente(resultado.idUserCliente);
                 setUserNameCliente(resultado.UsernameCliente);
                 setFechaEvento(resultado.FechaEvento + " " + resultado.HoraEvento);
+                setImagen(`data:image/png;base64,${resultado.ImagenPaquete}`);
                 
             };
         })
@@ -93,7 +96,7 @@ const VerVenta = () => {
     <img className="bodaIcon" src={[anillo]} alt="" />
 </div>
 
-    <img className="imgBoda" src={[boda]} alt="" />
+    <img className="imgBoda" src={imagen} alt="" />
 
     <div className="descricion-box">
 

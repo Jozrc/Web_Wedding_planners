@@ -24,6 +24,8 @@ const RegPaquete = () => {
   const [Telefono, setTelefono] = useState('');
   const [NumPerso, setNumPerso] = useState('');
 
+  const [file, setFile] = useState('');
+
   const mostrarServicios = () => {
     axios.get("http://localhost:3001/MostrarServicios", {
     }).then((response)=>{
@@ -102,8 +104,22 @@ const RegPaquete = () => {
       NumPerso: NumPerso,
       ServicioPaq:ServicioSelectedOptions
     }).then((response)=>{
-      alert("Paquete Registrado");
-      window.location.href="/";
+      let respuesta = response.data;
+
+      if (respuesta.Last_ID != ''){
+        const formData = new FormData();
+        formData.append('imagen', file);
+        formData.append('idPaquete', respuesta.Last_ID);
+
+        axios.post("http://localhost:3001/editarImagenPaquete", formData)
+        .then((response)=>{
+          alert("Paquete Registrado");
+          window.location.href="/";
+        });
+      }
+      else{
+        alert(respuesta.mensaje);
+      }
     }
   )};
 
@@ -119,8 +135,15 @@ const RegPaquete = () => {
       NumPerso: NumPerso,
       ServicioPaq:ServicioSelectedOptions
     }).then((response)=>{
-      alert("Paquete Editado");
-      window.location.href="/misPaquetes";
+      const formData = new FormData();
+      formData.append('imagen', file);
+      formData.append('idPaquete', idPaquete);
+
+      axios.post("http://localhost:3001/editarImagenPaquete", formData)
+      .then((response)=>{
+        alert("Paquete Editado");
+        window.location.href="/misPaquetes";
+      });
     }
   )};
 
@@ -161,7 +184,8 @@ const RegPaquete = () => {
         value={NumPerso} onChange={(e) => {setNumPerso(e.target.value)}}/></p>
 
     <p className="txtCarrito"><strong>Selecciona la miniatura de tu Paquete:</strong>
-        <input type="file" accept="image/*" name="foto" id="foto"/></p>
+        <input type="file" accept="image/*" name="foto" id="foto"
+          onChange={(e) => {setFile(e.target.files[0])}}/></p>
   </div>
   
 </div>

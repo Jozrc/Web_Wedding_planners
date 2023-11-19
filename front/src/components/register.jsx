@@ -19,6 +19,8 @@ const Register = () => {
   const [tel, setTel] = useState([]);
   const [fechaNac, setfechaNac] = useState([]);
 
+  const [file, setFile] = useState('');
+
 
   const agregar = () => {
     axios.post("http://localhost:3001/create", {
@@ -31,8 +33,24 @@ const Register = () => {
       telefonoUsuario: tel,
       fechaNacUsuario: fechaNac
 
-    }).then(()=>{
-      alert("Informacion enviada");
+    }).then((response)=>{
+      let respuesta = response.data;
+
+      if (respuesta.mensaje === ''){
+        const formData = new FormData();
+        formData.append('imagen', file);
+        formData.append('idUsuario', respuesta.IdUsuarioRegistrado);
+
+        axios.post("http://localhost:3001/editarImagenUser", formData)
+        .then((response)=>{
+          //console.log(response.data);
+          alert("Usuario " + username + " Registrado");
+          window.location.href="/";
+        });
+      }
+      else{
+        alert(respuesta.mensaje);
+      }
     }
 
   )};
@@ -99,8 +117,14 @@ const Register = () => {
               <input type="text" className="inputField3" />
             </div>
 
+            <h5 className="user-passw">Selecciona tu imagen de perfil:</h5>
+            <div className="inputContainer">
+              <input type="file" className="passw" accept="image/*" name="foto" id="foto"
+               onChange={(e) => {setFile(e.target.files[0])}}/>
+            </div>
+
             
-            <Link to="/"><button className="button" onClick={agregar}>Submit</button></Link>
+            <Link ><button className="button" onClick={agregar}>Submit</button></Link>
             <p className="dont-account">Do you already have an account? </p>
             <Link to="/login" className="RegisterLink">Log in</Link>
   

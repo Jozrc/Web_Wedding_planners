@@ -41,20 +41,25 @@ function NavScrollExample() {
             navbarScroll
           >
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/perfil">Profile</Nav.Link>
-            <NavDropdown title="Más" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="/misPaquetes">Mis Paquetes</NavDropdown.Item>
-              <NavDropdown.Item href="/compra">Mis Compras</NavDropdown.Item>
-              <NavDropdown.Item href="/venta">Mis Ventas</NavDropdown.Item>
-              <NavDropdown.Item href="/chat">
-                Chats
-              </NavDropdown.Item>
+            {
+              idUser != -1? <>
+                <Nav.Link href="/perfil">Profile</Nav.Link>
+                <NavDropdown title="Más" id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="/misPaquetes">Mis Paquetes</NavDropdown.Item>
+                  <NavDropdown.Item href="/compra">Mis Compras</NavDropdown.Item>
+                  <NavDropdown.Item href="/venta">Mis Ventas</NavDropdown.Item>
+                  <NavDropdown.Item href="/chat">
+                    Chats
+                  </NavDropdown.Item>
 
-              <NavDropdown.Item href="/regPaquete">
-                Agregar Paquete
-              </NavDropdown.Item>
+                  <NavDropdown.Item href="/regPaquete">
+                    Agregar Paquete
+                  </NavDropdown.Item>
 
-            </NavDropdown>
+                </NavDropdown>
+              </>:<></>
+            }
+            
           </Nav>
           <Form className="d-flex">
             <Form.Control

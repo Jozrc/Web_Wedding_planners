@@ -21,6 +21,8 @@ const EditUser = () => {
   const [tel, setTel] = useState();
   const [fechaNac, setfechaNac] = useState();
 
+  const [file, setFile] = useState('');
+
   const buscarUsuario = () => {
     axios.post("http://localhost:3001/profile", {
       idUser: idUser,
@@ -54,6 +56,10 @@ const EditUser = () => {
   }
 
   const editar = () => {
+    //const reader = new FileReader();
+    //console.log(file);
+    //const imageData = reader.result.split(',')[1]; // Obtén los datos base64 sin la cabecera
+
     axios.post("http://localhost:3001/editarUser", {
       idUsuario: idUser,
       nombreUsuario: nomUser,
@@ -67,9 +73,16 @@ const EditUser = () => {
 
     }).then(()=>{
        //alert("Informacion enviada");
-    }
+      const formData = new FormData();
+      formData.append('imagen', file);
+      formData.append('idUsuario', idUser);
 
-  )};
+      axios.post("http://localhost:3001/editarImagenUser", formData)
+      .then(()=>{
+        alert("Informacion enviada");
+      });
+    });
+  };
 
 
     return (
@@ -132,7 +145,12 @@ const EditUser = () => {
               <input type="text" className="inputField3" />
             </div>
 
-            
+            <h5 className="user-passw">Selecciona tu imagen de perfil:</h5>
+            <div className="inputContainer">
+              <input type="file" className="passw" accept="image/*" name="foto" id="foto"
+               onChange={(e) => {setFile(e.target.files[0])}}/>
+            </div>
+
             <Link to="/perfil"><button className="button" onClick={editar}>Submit</button></Link>
             <Link to="/perfil"><button className="button" >Cancel</button></Link>
   

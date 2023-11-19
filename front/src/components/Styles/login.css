@@ -18,7 +18,7 @@ body{
 }
 
 .container2 {
-  margin-top: 0.7%;
+  margin-top: 3%;
   display: flex; /* Utiliza flexbox para alinear elementos horizontalmente */
   justify-content: center;
   align-items: center;
@@ -40,7 +40,7 @@ body{
 
 .imagen-izquierdaR {
 
-  width: 544px; /* Esto hará que la imagen ocupe la mitad del contenedor */
+  width: 602px; /* Esto hará que la imagen ocupe la mitad del contenedor */
   height: auto; /* Mantendrá la proporción de aspecto de la imagen */
   box-shadow: 5px 5px 20px #bd8860;
 }
@@ -61,7 +61,7 @@ body{
 
 .form_main2 {
   width: 400px; /* Ancho del formulario, ajusta según tus necesidades */
-  height: 550px;
+  height: 610px;
   display: flex;
   flex-direction: column;
   justify-content: center;

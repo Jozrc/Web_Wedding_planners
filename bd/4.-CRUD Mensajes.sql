@@ -19,7 +19,7 @@ CREATE PROCEDURE SP_MostrarMensajes(
 )
 BEGIN
     SELECT DISTINCT M.Emisor, E.Username AS Username_Emisor, M.Receptor, R.Username AS Username_Receptor, M.Mensaje,
-    CONCAT(DATE_FORMAT(M.Fecha_envio, '%Y-%m-%d')," ",TIME_FORMAT(M.Fecha_envio, "%T")) AS Fecha_envio FROM Mensajes M 
+    CONCAT(DATE_FORMAT(M.Fecha_envio, '%Y-%m-%d')," ",TIME_FORMAT(M.Fecha_envio, "%T")) AS Fecha_envio, TO_BASE64(E.Foto_Perfil) AS Foto_Perfil FROM Mensajes M 
     INNER JOIN usuario E ON E.idUsuario = M.Emisor 
     INNER JOIN usuario R ON R.idUsuario = M.Receptor 
     WHERE (M.Emisor = _idReceptor AND M.Receptor = _idEmisor) 
@@ -51,7 +51,7 @@ BEGIN
      ORDER BY m2.Fecha_envio DESC
      LIMIT 1) AS UltimoMensaje,
      
-     CONCAT(DATE_FORMAT(MAX(m.Fecha_envio), '%Y-%m-%d')," ",TIME_FORMAT(MAX(m.Fecha_envio), "%T")) AS Fecha_envio
+     CONCAT(DATE_FORMAT(MAX(m.Fecha_envio), '%Y-%m-%d')," ",TIME_FORMAT(MAX(m.Fecha_envio), "%T")) AS Fecha_envio, TO_BASE64(uR.Foto_Perfil) AS Foto_Perfil
     
 	FROM mensajes m
 	INNER JOIN usuario uR ON m.Receptor = uR.idUsuario
@@ -62,8 +62,3 @@ BEGIN
 END//
 DELIMITER ;
 
-DROP PROCEDURE SP_MostrarChats;
-CALL SP_MostrarChats(1);
-CALL SP_MostrarMensajes(1,2);
-
-SELECT * FROM MENSAJES;

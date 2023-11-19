@@ -16,7 +16,7 @@ function Chats({usuario, sendDatos}){
     return (
         <div className="chats">
             <div className="userChat">
-                <img className="imgPerfil" src={ImgPerfil} alt="" />
+                <img className="imgPerfil" src={usuario.imagen} alt="" />
                 <div className="userChatInfo">
                     <span>{usuario.userName}</span>
                     <p>{usuario.lastMessage}</p>

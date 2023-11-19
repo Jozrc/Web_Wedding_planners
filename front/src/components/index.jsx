@@ -71,7 +71,7 @@ function HeaderAndFooterExample() {
         listaPaquetes.map((valor) => {
           return (
             <Paquete paquete={{id_Paquete: valor.idPaquete, Titulo: valor.Titulo_Paquete, 
-              Descripcion:valor.Descripcion_Paquete, Precio:valor.Precio_Paquete,
+              Descripcion:valor.Descripcion_Paquete, Precio:valor.Precio_Paquete, Imagen:(`data:image/png;base64,${valor.ImagenPaquete}`),
               venta: false }}/>
           )
         })

@@ -1,10 +1,19 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const multer = require('multer');
 const cors = require('cors');
 
+const uploadLimit = '40MB';
+
+app.use(express.json({ limit: uploadLimit }));
+app.use(express.urlencoded({ limit: uploadLimit, extended: true }));
+
 app.use(cors());
-app.use(express.json());
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+//app.use(express.json());
 
 
 const db= mysql.createConnection({
@@ -24,13 +33,17 @@ app.post("/create", (req, resp) => {
     const telefonoUsuario= req.body.telefonoUsuario;
     const fechaNacUsuario= req.body.fechaNacUsuario;
 
-    db.query('INSERT INTO Usuario (Nombre_Usuario, Apellido_Paterno_Usuario, Apellido_Paterno_Usuario, Correo_Usuario, Contrasenia_Usuario, Telefono_Usuario, Username, Fecha_Nacimiento) VALUES (?,?,?,?,?,?)',
-    [nombreUsuario, apellidoPUsuario, apellidoMUsuario, correo, contra, telefonoUsuario, username, fechaNacUsuario],
+    db.query('CALL SP_RegUsuario(?,?,?,?,?,?,?,?,?,?)',
+    [nombreUsuario, apellidoPUsuario, apellidoMUsuario, correo, contra, username, telefonoUsuario, 1, 1, fechaNacUsuario],
     (err, result) =>{
         if(err){
             console.log(err);
         }else{
-            resp.send("Empleado registrado con exito");
+            let resultado = JSON.parse(JSON.stringify(result[0]));
+            resultado = resultado[0];
+            //console.log(resultado);
+            //resp.send("Empleado registrado con exito");
+            resp.send(resultado);
         }
     });
 });
@@ -48,6 +61,21 @@ app.post("/editarUser", (req, resp) => {
 
     db.query('CALL SP_EditUsuario(?,?,?,?,?,?,?,?,?,?,?)',
     [idUsuario, nombreUsuario, apellidoPUsuario, apellidoMUsuario, correo, contra, telefonoUsuario, username, 1, 1, fechaNacUsuario],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send("Usuario modificado con exito");
+        }
+    });
+});
+
+app.post("/editarImagenUser", upload.single('imagen'), (req, resp) => {
+    const idUsuario= req.body.idUsuario;
+    const imagenUsuario= req.file.buffer;
+
+    db.query('CALL SP_EditImagenUsuario(?,?)',
+    [idUsuario, imagenUsuario],
     (err, result) =>{
         if(err){
             console.log(err);
@@ -87,6 +115,7 @@ app.post("/profile", (req, resp) => {
         if(err){
             console.log(err);
         }else{
+            //console.log(result);
             //resp.send(result);
 
             let resultado = JSON.parse(JSON.stringify(result[0]));
@@ -248,6 +277,21 @@ app.post("/editPaquetes", (req, resp) => {
     });
 });
 
+app.post("/editarImagenPaquete", upload.single('imagen'), (req, resp) => {
+    const idPaquete= req.body.idPaquete;
+    const imagenPaquete= req.file.buffer;
+
+    db.query('CALL SP_EditImagenPaquete(?,?)',
+    [idPaquete, imagenPaquete],
+    (err, result) =>{
+        if(err){
+            console.log(err);
+        }else{
+            resp.send("Paquete modificado con exito");
+        }
+    });
+});
+
 app.post("/MostrarPaquetes", (req, resp) => {
     const Categoria = req.body.Categoria;
     db.query('CALL SP_MostrarPaquetes(?)',
@@ -256,7 +300,7 @@ app.post("/MostrarPaquetes", (req, resp) => {
         if(err){
             console.log(err);
         }else{
-            console.log(Categoria);
+            //console.log(Categoria);
             resp.send(result);
         }
     });

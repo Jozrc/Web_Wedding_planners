@@ -42,6 +42,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Procedure Editar Imagen Paquete
+DELIMITER //
+CREATE PROCEDURE SP_EditImagenPaquete(
+	IN _idPaquete INT,
+    IN _foto_Paquete LONGBLOB
+)
+BEGIN
+
+	UPDATE Paquete SET ImagenPaquete = _foto_Paquete WHERE idPaquete = _idPaquete;
+    
+END//
+DELIMITER ;
 
 -- Procedure Eliminar Logicamente Paquete
 DELIMITER //
@@ -72,7 +84,7 @@ CREATE PROCEDURE SP_MostrarPaquetes(
 )
 BEGIN
     SELECT DISTINCT P.idPaquete, P.Titulo_Paquete, P.Descripcion_Paquete, P.Fecha_Registro_Paquete, P.EstadoPaquete,
-    P.Precio_Paquete, P.Capacidad, P.Creador_Paquete, P.ImagenPaquete
+    P.Precio_Paquete, P.Capacidad, P.Creador_Paquete, TO_BASE64(P.ImagenPaquete) AS ImagenPaquete
     FROM Paquete P
     INNER JOIN CategoriaPaquete CP ON CP.idPaquete = P.idPaquete
     INNER JOIN Categoria C ON C.idCategoria = CP.idCategoria
@@ -82,7 +94,9 @@ BEGIN
 		WHEN _Categoria = 2 THEN C.Nombre_categoria = 'Foto/Video' OR C.Nombre_categoria = 'Musica'
         WHEN _Categoria = 1 THEN C.Nombre_categoria = 'Salon' OR C.Nombre_categoria = 'Decoración' OR C.Nombre_categoria = 'Ambientación'
 		WHEN _Categoria = 0 THEN TRUE
-    END;
+    END
+    ORDER BY P.idPaquete;
+    
 END//
 DELIMITER ;
 
@@ -93,7 +107,8 @@ CREATE PROCEDURE SP_MostrarPaqueteByID(
 	IN _idPaquete INT
 )
 BEGIN
-    SELECT P.idPaquete, P.Titulo_Paquete, P.Descripcion_Paquete, P.Precio_Paquete, P.Capacidad, P.EstadoPaquete, P.Creador_Paquete, U.Username, P.ImagenPaquete
+    SELECT P.idPaquete, P.Titulo_Paquete, P.Descripcion_Paquete, P.Precio_Paquete, P.Capacidad, P.EstadoPaquete, P.Creador_Paquete, U.Username, 
+    TO_BASE64(P.ImagenPaquete) AS ImagenPaquete
     FROM Paquete P 
     INNER JOIN Usuario U ON U.idUsuario = P.Creador_Paquete
     WHERE P.idPaquete = _idPaquete;
@@ -108,7 +123,7 @@ CREATE PROCEDURE SP_MostrarMisPaquetes(
 	IN _idUser INT
 )
 BEGIN
-    SELECT * FROM Paquete
+    SELECT idPaquete, Titulo_Paquete, Descripcion_Paquete, Precio_Paquete, TO_BASE64(ImagenPaquete) AS ImagenPaquete FROM Paquete
     WHERE Creador_Paquete = _idUser;
 
 END//
@@ -143,7 +158,7 @@ CREATE PROCEDURE SP_MostrarPaquetesComprados(
 	IN _idUser INT
 )
 BEGIN
-    SELECT *
+    SELECT P.idPaquete, P.Titulo_Paquete, P.Descripcion_Paquete, P.Precio_Paquete, TO_BASE64(P.ImagenPaquete) AS ImagenPaquete, PC.IdPaqueteComprado
     FROM PaqueteComprado PC 
     INNER JOIN Paquete P ON PC.IdPaquete = P.idPaquete
     INNER JOIN Usuario U ON U.idUsuario = P.Creador_Paquete
@@ -151,19 +166,21 @@ BEGIN
 END//
 DELIMITER ;
 
+
 -- Procedure Mostrar Paquetes Vendidos
 DELIMITER //
 CREATE PROCEDURE SP_MostrarPaquetesVendidos(
 	IN _idUser INT
 )
 BEGIN
-    SELECT *
+	SELECT P.idPaquete, P.Titulo_Paquete, P.Descripcion_Paquete, P.Precio_Paquete, TO_BASE64(P.ImagenPaquete) AS ImagenPaquete, PC.IdPaqueteComprado
     FROM PaqueteComprado PC 
     INNER JOIN Paquete P ON PC.IdPaquete = P.idPaquete
     INNER JOIN Usuario U ON U.idUsuario = P.Creador_Paquete
     WHERE P.Creador_Paquete = _idUser;
 END//
 DELIMITER ;
+
 
 -- Procedure Mostrar Paquetes Vendidos Por Id Paquete
 DELIMITER //
@@ -173,7 +190,7 @@ CREATE PROCEDURE SP_MostrarPaqueteVendidoByID(
 BEGIN
     SELECT PC.IdPaqueteComprado, PC.FechaCompra, DATE_FORMAT(PC.FechaEvento, '%Y-%m-%d') AS FechaEvento, PC.HoraEvento, PC.IdPaquete, PC.Calificacion, cast(PC.PrecioPagado AS DECIMAL(10,2)) AS PrecioPaquete,
 			cast(SUM(PP.PrecioPagado) AS DECIMAL(10,2)) AS PrecioPagado, PC.Pagado,
-			PC.FormaPago, PC.Invitados, PC.Comentarios, P.Titulo_Paquete, P.Capacidad, P.Creador_Paquete, P.ImagenPaquete, 
+			PC.FormaPago, PC.Invitados, PC.Comentarios, P.Titulo_Paquete, P.Capacidad, P.Creador_Paquete, TO_BASE64(P.ImagenPaquete) AS ImagenPaquete, 
             U.idUsuario AS idUserCreador, U.Username AS UsernameCreador, 
             UC.idUsuario AS idUserCliente, UC.Username AS UsernameCliente
     FROM PaqueteComprado PC 

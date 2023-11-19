@@ -21,6 +21,30 @@ const Perfil = () => {
     const [username, setUsername] = useState();
     const [tel, setTel] = useState();
     const [fechaNac, setfechaNac] = useState();
+    const [imagen, setImagen] = useState();
+    
+
+    // Función para convertir ArrayBuffer a cadena base64
+    const arrayBufferToBase64 = (buffer) => {
+        let binary = '';
+
+        var reader = new FileReader();
+        reader.readAsDataURL(buffer);
+        reader.onload = function(){
+            console.log(reader.result);
+        }
+
+        
+
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+
+        for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+        }
+
+        return btoa(binary);
+    };
 
     const buscarUsuario = () => {
         axios.post("http://localhost:3001/profile", {
@@ -36,6 +60,8 @@ const Perfil = () => {
                 setUsername(respuesta.Username);
                 setTel(respuesta.Telefono_Usuario);
                 setfechaNac(respuesta.Fecha_Nacimiento);
+                //console.log(respuesta.Foto_Perfil);
+                setImagen(`data:image/png;base64,${respuesta.Foto_Perfil}`);
             };
         })
     };
@@ -67,7 +93,7 @@ const Perfil = () => {
         
 
         <div className="Perfil">
-            <img className="imgPerfil" src={[imgPerfil]} alt="" />
+            <img className="imgPerfil" src={imagen} alt="Foto" />
             <h1 className="NombrePerfil"> {nomUser + " " + apeUser + " (" + username + ")"}</h1>
             <h4 className="NombrePerfil"> {"Correo: " + email + " con Password: " + pass}</h4>
             <h5 className="NombrePerfil"> {"Telefono: " + tel + " con Fecha de Nacimiento: " + fechaNac}</h5>

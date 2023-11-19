@@ -24,6 +24,8 @@ const Planner = () => {
     const [CapacidadPaq, setCapacidadPaq] = useState('');
     const [listaServicios, setListaServicios] = useState([]);
 
+    const [imagen, setImagen] = useState();
+
     const mostrarPaquete = () => {
         axios.post("http://localhost:3001/MostrarPaqueteByID", {
             idPaquete: idPaquete,
@@ -39,6 +41,7 @@ const Planner = () => {
                 setidCreadorPaq(resultado.Creador_Paquete);
                 setUserNameCreadorPaq(resultado.Username);
                 setEstadoPaq(resultado.EstadoPaquete);
+                setImagen(`data:image/png;base64,${resultado.ImagenPaquete}`);
                 
             };
         })
@@ -93,7 +96,7 @@ const Planner = () => {
     <img className="bodaIcon" src={[anillo]} alt="" />
 </div>
 
-    <img className="imgBoda" src={[boda]} alt="" />
+    <img className="imgBoda" src={imagen} alt="" />
 
     <div className="descricion-box">
 

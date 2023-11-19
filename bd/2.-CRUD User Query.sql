@@ -25,7 +25,7 @@ BEGIN
 			INSERT INTO usuario(Nombre_Usuario, Apellido_Paterno_Usuario, Apellido_Materno_Usuario, Correo_Usuario, Contrasenia_Usuario, Username, Telefono_Usuario, Rol_User, Genero, Fecha_Nacimiento)
 			VALUES(nombre_usuario, _apellido_paterno_usuario,_apellido_materno_usuario, _correo_usuario, _contrasenia_usuario, _username, _telefono, _rol_user, _genero, _fecha_nacimiento);
 			SET IdUsuarioRegistrado = last_insert_id();
-			select '' as mensaje;
+			select '' as mensaje, IdUsuarioRegistrado;
 		ELSE 
 			SET @Mensaje = 'Correo electronico ya existe';
             select @Mensaje as mensaje;
@@ -36,6 +36,7 @@ BEGIN
 	END IF;   
 END//
 DELIMITER ;
+
 
 -- Procedure Editar Usuario
 DELIMITER //
@@ -70,6 +71,20 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Procedure Editar Imagen Usuario
+DELIMITER //
+CREATE PROCEDURE SP_EditImagenUsuario(
+	IN _idusuario INT,
+    IN _foto_perfil LONGBLOB
+)
+BEGIN
+
+	UPDATE usuario SET Foto_Perfil = _foto_perfil WHERE idUsuario = _idusuario;
+    
+END//
+DELIMITER ;
+
+
 -- Procedure Eliminar Logicamente Usuario
 DELIMITER //
 CREATE PROCEDURE SP_EliminLogUsuario(
@@ -85,7 +100,8 @@ DELIMITER //
 CREATE PROCEDURE SP_MostrarUsuario(IN idusuario1 INT)
 BEGIN
 	SELECT idUsuario, Nombre_Usuario, Apellido_Paterno_Usuario, Apellido_Materno_Usuario, Correo_Usuario, Contrasenia_Usuario, Username, 
-Estado_Usuario, Telefono_Usuario, Rol_User, Genero, DATE_FORMAT(Fecha_Nacimiento, '%Y-%m-%d') AS Fecha_Nacimiento, Fecha_Registro, Fecha_Modificacion FROM usuario WHERE idUsuario = idusuario1;
+Estado_Usuario, Telefono_Usuario, Rol_User, Genero, DATE_FORMAT(Fecha_Nacimiento, '%Y-%m-%d') AS Fecha_Nacimiento, Fecha_Registro, Fecha_Modificacion, 
+TO_BASE64(Foto_Perfil) AS Foto_Perfil FROM usuario WHERE idUsuario = idusuario1;
 END//
 DELIMITER ;
 

@@ -40,7 +40,8 @@ const Messages = ({user}) => {
                     return (
                         <Message mensaje={{Emisor: valor.Emisor, UserNameE:valor.Username_Emisor, 
                             Receptor:valor.Receptor, UserNameR: valor.Username_Receptor, 
-                            Mensaje:valor.Mensaje, FechaEnvio:valor.Fecha_envio}}/>
+                            Mensaje:valor.Mensaje, FechaEnvio:valor.Fecha_envio, 
+                            imagen:(`data:image/png;base64,${valor.Foto_Perfil}`)}}/>
                     )
                 })
             }

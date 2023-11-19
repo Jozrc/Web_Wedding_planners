@@ -17,7 +17,7 @@ const Paquete = ({paquete}) => {
       
             <div id="imagen-contenedor" onClick={toggleAmpliar}>
             <img
-            src={miImagen}
+            src={paquete.Imagen}
             alt="Descripción de la imagen" 
             id="imagen" 
             className={`imagen-planner ${ampliarImagen ? "ampliada" : ""}`} // Aplica el estilo de zoom a la imagen

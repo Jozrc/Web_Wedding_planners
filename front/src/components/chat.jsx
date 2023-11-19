@@ -21,6 +21,7 @@ const Chat = () => {
     const [nomUser, setnomUser] = useState();
     const [apeUser, setapeUser] = useState();
     const [username, setUsername] = useState('');
+    const [imagen, setImagen] = useState();
 
     const [listaChats, setListaChats] = useState([]);
     const [chatSelect, setChatSelect] = useState([]);
@@ -35,6 +36,7 @@ const Chat = () => {
                 setnomUser(respuesta.Nombre_Usuario);
                 setapeUser(respuesta.Apellido_Paterno_Usuario + " " + respuesta.Apellido_Materno_Usuario);
                 setUsername(respuesta.Username);
+                setImagen(`data:image/png;base64,${respuesta.Foto_Perfil}`);
             };
         })
     };
@@ -95,7 +97,7 @@ const Chat = () => {
                 <div className="navbarChat">
                     <span className="logoChat">Lama Chat</span>
                     <div className="user">
-                        <img className="perfilimg" src={ImgPerfil} alt="" />
+                        <img className="perfilimg" src={imagen} alt="" />
                         <span>{username}</span>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ const Chat = () => {
                         <input className="busquedadChat" type="text" placeholder="Search user" />
                     </div>
                     <div className="userChat">
-                        <img className="imgPerfil" src={ImgPerfil} alt="" />
+                        <img className="imgPerfil" src={imagen} alt="" />
                         <div className="userChatInfo">
                             <span>{nomUser + " " + apeUser}</span>
                         </div>
@@ -118,7 +120,8 @@ const Chat = () => {
                         listaChats.map((valor) => {
                             return (
                                 <Chats usuario={{idUser: valor.idUser, userName: valor.Username, 
-                                    lastMessage: valor.UltimoMensaje, lastFecha:valor.Fecha_envio}} sendDatos={sendDatos}/>
+                                    lastMessage: valor.UltimoMensaje, lastFecha:valor.Fecha_envio, 
+                                    imagen:(`data:image/png;base64,${valor.Foto_Perfil}`)}} sendDatos={sendDatos}/>
                             )
                         })
                         

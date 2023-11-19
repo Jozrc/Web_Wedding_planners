@@ -32,3 +32,7 @@ npm install ​mysql express​
 npm install express
 
 npm install cors
+
+npm install multer axios
+
+npm install body-parser

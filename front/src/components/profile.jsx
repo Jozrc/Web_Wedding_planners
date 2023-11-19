@@ -23,6 +23,7 @@ const Profile = () => {
     const [username, setUsername] = useState();
     const [tel, setTel] = useState();
     const [fechaNac, setfechaNac] = useState();
+    const [imagen, setImagen] = useState();
 
     const buscarUsuario = () => {
         axios.post("http://localhost:3001/profile", {
@@ -37,6 +38,7 @@ const Profile = () => {
                 setUsername(respuesta.Username);
                 setTel(respuesta.Telefono_Usuario);
                 setfechaNac(respuesta.Fecha_Nacimiento);
+                setImagen(`data:image/png;base64,${respuesta.Foto_Perfil}`);
             };
         })
     };
@@ -55,7 +57,7 @@ const Profile = () => {
         
 
         <div className="Perfil">
-            <img className="imgPerfil" src={[imgPerfil]} alt="" />
+            <img className="imgPerfil" src={imagen} alt="" />
             <h1 className="NombrePerfil"> {nomUser + " " + apeUser + " (" + username + ")"}</h1>
             <h4 className="NombrePerfil"> {"Correo Electronico: " + email + " Telefono: " + tel}</h4>
             <h5 className="NombrePerfil"> {"Fecha de Nacimiento: " + fechaNac}</h5>

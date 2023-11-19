@@ -8,7 +8,7 @@ const Message = ({mensaje}) => {
             <div className="messageInfo">
                 <img
                 className="imgMessage" 
-                src={ImgPerfil}
+                src={mensaje.imagen}
                 alt="" />
                 <span>{mensaje.UserNameE}</span>
                 <span>{mensaje.FechaEnvio}</span>
