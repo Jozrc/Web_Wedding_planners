@@ -51,7 +51,12 @@ BEGIN
      ORDER BY m2.Fecha_envio DESC
      LIMIT 1) AS UltimoMensaje,
      
-     CONCAT(DATE_FORMAT(MAX(m.Fecha_envio), '%Y-%m-%d')," ",TIME_FORMAT(MAX(m.Fecha_envio), "%T")) AS Fecha_envio, TO_BASE64(uR.Foto_Perfil) AS Foto_Perfil
+     CONCAT(DATE_FORMAT(MAX(m.Fecha_envio), '%Y-%m-%d')," ",TIME_FORMAT(MAX(m.Fecha_envio), "%T")) AS Fecha_envio, 
+     
+     CASE
+        WHEN m.Receptor = _idReceptor THEN TO_BASE64(u.Foto_Perfil)
+        ELSE TO_BASE64(uR.Foto_Perfil)
+	 END AS Foto_Perfil
     
 	FROM mensajes m
 	INNER JOIN usuario uR ON m.Receptor = uR.idUsuario

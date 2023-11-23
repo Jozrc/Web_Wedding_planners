@@ -42,7 +42,7 @@ BEGIN
     INNER JOIN PaqueteComprado PC ON PC.IdPaqueteComprado = PP.IdPaqueteComprado
     INNER JOIN Paquete P ON P.idPaquete = PC.IdPaquete
     INNER JOIN Usuario U ON U.idUsuario = PC.IdUser
-    WHERE P.Creador_Paquete = _idUser AND PC.IdPaqueteComprado = _idPaqueteComprado;
+    WHERE (P.Creador_Paquete = _idUser OR PC.IdUser = _idUser) AND PC.IdPaqueteComprado = _idPaqueteComprado;
 END//
 DELIMITER ;
 
