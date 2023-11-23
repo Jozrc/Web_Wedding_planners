@@ -22,6 +22,7 @@ const EditUser = () => {
   const [fechaNac, setfechaNac] = useState();
 
   const [file, setFile] = useState('');
+  const [subirImagen, setSubirImagen] = useState(false);
 
   const buscarUsuario = () => {
     axios.post("http://localhost:3001/profile", {
@@ -73,14 +74,19 @@ const EditUser = () => {
 
     }).then(()=>{
        //alert("Informacion enviada");
-      const formData = new FormData();
-      formData.append('imagen', file);
-      formData.append('idUsuario', idUser);
+       if(subirImagen == true){
+        const formData = new FormData();
+        formData.append('imagen', file);
+        formData.append('idUsuario', idUser);
 
-      axios.post("http://localhost:3001/editarImagenUser", formData)
-      .then(()=>{
+        axios.post("http://localhost:3001/editarImagenUser", formData)
+        .then(()=>{
+          alert("Informacion enviada");
+        });
+      }
+      else{
         alert("Informacion enviada");
-      });
+      }
     });
   };
 
@@ -145,10 +151,16 @@ const EditUser = () => {
               <input type="text" className="inputField3" />
             </div>
 
-            <h5 className="user-passw">Selecciona tu imagen de perfil:</h5>
+            <div className="user-passw-container">
+              <h5 className="user-passw">Cambiar Imagen</h5>
+              <h5 className="user-passw">Selecciona tu imagen de perfil:</h5>
+            </div>
+            
             <div className="inputContainer">
+              <input type="checkbox" className="passw" id="subirImagen" name="subirImagen" value={subirImagen}
+                onChange={(e) => {setSubirImagen(subirImagen==false?true:false)}}/>
               <input type="file" className="passw" accept="image/*" name="foto" id="foto"
-               onChange={(e) => {setFile(e.target.files[0])}}/>
+                onChange={(e) => {setFile(e.target.files[0])}}/>
             </div>
 
             <Link to="/perfil"><button className="button" onClick={editar}>Submit</button></Link>

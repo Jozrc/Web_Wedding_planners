@@ -25,6 +25,7 @@ const RegPaquete = () => {
   const [NumPerso, setNumPerso] = useState('');
 
   const [file, setFile] = useState('');
+  const [subirImagen, setSubirImagen] = useState(false);
 
   const mostrarServicios = () => {
     axios.get("http://localhost:3001/MostrarServicios", {
@@ -134,16 +135,23 @@ const RegPaquete = () => {
       Telefono: Telefono,
       NumPerso: NumPerso,
       ServicioPaq:ServicioSelectedOptions
-    }).then((response)=>{
-      const formData = new FormData();
-      formData.append('imagen', file);
-      formData.append('idPaquete', idPaquete);
 
-      axios.post("http://localhost:3001/editarImagenPaquete", formData)
-      .then((response)=>{
+    }).then((response)=>{
+      if(subirImagen == true){
+        const formData = new FormData();
+        formData.append('imagen', file);
+        formData.append('idPaquete', idPaquete);
+
+        axios.post("http://localhost:3001/editarImagenPaquete", formData)
+        .then((response)=>{
+          alert("Paquete Editado");
+          window.location.href="/misPaquetes";
+        });
+      }
+      else{
         alert("Paquete Editado");
         window.location.href="/misPaquetes";
-      });
+      }
     }
   )};
 
@@ -182,6 +190,14 @@ const RegPaquete = () => {
     <p className="txtCarrito"><strong>Número de Personas:</strong> 
         <input className="inputCarrito" type="number" placeholder="Número de Personas" 
         value={NumPerso} onChange={(e) => {setNumPerso(e.target.value)}}/></p>
+
+      {
+        idPaquete!=null?<>
+          <p className="txtCarrito"><strong>Cambiar Imagen: </strong>
+          <input type="checkbox" className="passw" id="subirImagen" name="subirImagen" value={subirImagen}
+            onChange={(e) => {setSubirImagen(subirImagen==false?true:false)}}/></p>
+        </>:<></>
+      }
 
     <p className="txtCarrito"><strong>Selecciona la miniatura de tu Paquete:</strong>
         <input type="file" accept="image/*" name="foto" id="foto"
