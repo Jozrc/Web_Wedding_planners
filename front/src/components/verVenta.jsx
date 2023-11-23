@@ -132,7 +132,7 @@ const VerVenta = () => {
     <p>$ {PrecioPaq}</p>
 
     <h3 className="infoSubTitulo">Precio Pagado</h3>
-    <p>$ {PrecioPagado}</p>
+    <p>$ {PrecioPagado>0 ? PrecioPagado : 0}</p>
 
     <h3 className="infoSubTitulo">Monto Restante</h3>
     <p>$ {PrecioPaq - PrecioPagado}</p>

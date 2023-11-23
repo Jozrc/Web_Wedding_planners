@@ -28,9 +28,9 @@ CREATE PROCEDURE SP_EditPaquete(
 )
 BEGIN
 	IF _Precio_Paquete < (SELECT Precio_Paquete FROM Paquete WHERE idPaquete = _idPaquete) THEN
-		UPDATE Paquete SET Oferta = 1;
+		UPDATE Paquete SET Oferta = 1 WHERE idPaquete = _idPaquete;
 	ELSE
-		UPDATE Paquete SET Oferta = 0;
+		UPDATE Paquete SET Oferta = 0 WHERE idPaquete = _idPaquete;
 	END IF;
 
 	UPDATE Paquete SET Titulo_Paquete = _Titulo_Paquete,  Descripcion_Paquete=_Descripcion_Paquete,
@@ -230,3 +230,4 @@ BEGIN
 
 END//
 DELIMITER ;
+

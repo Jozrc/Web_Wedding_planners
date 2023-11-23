@@ -10,7 +10,11 @@ BEGIN
     DECLARE MontoTotal DECIMAL(10,2);
     DECLARE Mensaje VARCHAR(100);
     
-    SET @MontoPagado = (SELECT SUM(PrecioPagado) FROM PagosPaqueteComprado WHERE IdPaqueteComprado = 5);
+    SET @MontoPagado = (SELECT SUM(PrecioPagado) FROM PagosPaqueteComprado WHERE IdPaqueteComprado = _idPaqueteComprado);
+    IF (MontoPagado IS NULL) THEN 
+		SET @MontoPagado = 0;
+	END IF;
+    
     SET @MontoTotal = (SELECT PrecioPagado FROM PaqueteComprado WHERE IdPaqueteComprado = _idPaqueteComprado);
     
     IF (@MontoPagado + _PrecioPagado <= @MontoTotal) THEN 

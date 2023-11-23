@@ -114,32 +114,6 @@ CREATE TABLE IF NOT EXISTS `CategoriaPaquete` (
 ENGINE = InnoDB;
 
 
--- Tabla de Calificacion de paquete
-CREATE TABLE IF NOT EXISTS `Calificacion` (
-  `idCalificacion` INT NOT NULL AUTO_INCREMENT,
-  `Nombre_calificacion` VARCHAR(45) NULL,
-  `Comentario` VARCHAR(200) NULL,
-  `Usuario_calificador` INT NOT NULL,
-  `Paquete_Calificado` INT NOT NULL,
-  `Fecha_Calificacion` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `Estado_Calificacion` TINYINT NULL DEFAULT 1,
-  PRIMARY KEY (`idCalificacion`),
-  
-  INDEX `Calificador_index` (`Usuario_calificador`),
-  INDEX `Calificacion_index` (`Paquete_Calificado`),
-  CONSTRAINT `Calificador`
-    FOREIGN KEY (`Usuario_calificador`)
-    REFERENCES `Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Calificacion`
-    FOREIGN KEY (`Paquete_Calificado`)
-    REFERENCES `Paquete` (`idPaquete`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 -- Tabla de Mensajes entre organizadores y clientes
 CREATE TABLE IF NOT EXISTS `Mensajes` (
   `idMensajes` INT NOT NULL AUTO_INCREMENT,
@@ -231,6 +205,32 @@ CREATE TABLE IF NOT EXISTS `PagosPaqueteComprado` (
     FOREIGN KEY (`IdPaqueteComprado`)
     REFERENCES `PaqueteComprado` (`IdPaqueteComprado`)
     
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- Tabla de Calificacion de paquete
+CREATE TABLE IF NOT EXISTS `Calificacion` (
+  `idCalificacion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_calificacion` VARCHAR(45) NULL,
+  `Comentario` VARCHAR(200) NULL,
+  `Usuario_calificador` INT NOT NULL,
+  `idPaquete_Comprado_Calificado` INT NOT NULL,
+  `Fecha_Calificacion` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `Estado_Calificacion` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`idCalificacion`),
+  
+  INDEX `Calificador_index` (`Usuario_calificador`),
+  INDEX `Calificacion_index` (`idPaquete_Comprado_Calificado`),
+  CONSTRAINT `Calificador`
+    FOREIGN KEY (`Usuario_calificador`)
+    REFERENCES `Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Calificacion`
+    FOREIGN KEY (`idPaquete_Comprado_Calificado`)
+    REFERENCES `PaqueteComprado` (`IdPaqueteComprado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
