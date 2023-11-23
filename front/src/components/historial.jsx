@@ -10,6 +10,7 @@ let idUser = -1, paso = false;
 const Historial = () =>{
   const cookies = new Cookies();
   const params = useParams();
+  let idPaqueteVendido = params.idPaqueteVendido;
   let idPaqueteComprado = params.idPaqueteComprado;
 
   const [listaPaquetes, setListaPaquetes] = useState([]);
@@ -35,7 +36,10 @@ const Historial = () =>{
       window.location.href="/";
       return;
     }
-
+    
+    if(idPaqueteVendido!= null){
+      idPaqueteComprado = idPaqueteVendido;
+    }
     mostrarPaquetes();
     paso = true;
   }
@@ -52,7 +56,7 @@ const Historial = () =>{
       <th>Fecha</th> 
       <th>Correo Cliente</th>
       <th>UserName Cliente</th>
-      <th>Ver Venta</th>
+      <th>{idPaqueteVendido!=null?'Ver Venta':'Ver Compra'}</th>
     </tr>
   </thead>
   <tbody>
@@ -67,7 +71,7 @@ const Historial = () =>{
                 <td>{valor.FechaPago}</td>
                 <td>{valor.Correo_Usuario}</td>
                 <td>{valor.Username}</td>
-                <td><Link to={"/verVenta/" + valor.idPaquete + "/" + valor.IdPaqueteComprado} type="button" className="btn btn-primary">Ver Venta</Link></td>
+                <td><Link to={(idPaqueteVendido!=null?"/verVenta/":"/verCompra/") + valor.idPaquete + "/" + valor.IdPaqueteComprado} type="button" className="btn btn-primary">{idPaqueteVendido!=null?'Ver Venta':'Ver Compra'}</Link></td>
             </tr>
           )
         })

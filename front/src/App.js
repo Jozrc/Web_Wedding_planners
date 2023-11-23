@@ -48,7 +48,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/:idUserContacto" element={<Chat />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/historial/:idPaqueteComprado" element={<Historial />} />
+        <Route path="/historialC/:idPaqueteComprado" element={<Historial />} />
+        <Route path="/historialV/:idPaqueteVendido" element={<Historial />} />
         <Route path="/carrito/:idPaquete" element={<Carrito />} />
         <Route path="/compra" element={<Compra />} />
         <Route path="/venta" element={<Venta />} />

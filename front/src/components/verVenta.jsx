@@ -22,6 +22,8 @@ const VerVenta = () => {
     const [Pagado, setPagado] = useState('');
     const [idCliente, setidCliente] = useState('');
     const [UserNameCliente, setUserNameCliente] = useState('');
+    const [idVendedor, setidVendedor] = useState('');
+    const [UserNameVendedor, setUserNameVendedor] = useState('');
     const [CapacidadPaq, setCapacidadPaq] = useState('');
     const [CapacidadCliente, setCapacidadCliente] = useState('');
     const [FechaHoraEvento, setFechaEvento] = useState('');
@@ -46,6 +48,8 @@ const VerVenta = () => {
                 setPagado(resultado.Pagado);
                 setidCliente(resultado.idUserCliente);
                 setUserNameCliente(resultado.UsernameCliente);
+                setidVendedor(resultado.idUserCreador);
+                setUserNameVendedor(resultado.UsernameCreador);
                 setFechaEvento(resultado.FechaEvento + " " + resultado.HoraEvento);
                 setImagen(`data:image/png;base64,${resultado.ImagenPaquete}`);
                 
@@ -148,9 +152,9 @@ const VerVenta = () => {
 <div className="descricion-box">
 
 <ul className="opciones-planner">
-    <Link to={"/profile/" + idCliente + "/" + UserNameCliente}><li>Contacto</li></Link>
+    <Link to={"/profile/" + (idPaqueteComprado!= null? idVendedor:idCliente) + "/" + (idPaqueteComprado!= null? UserNameVendedor:UserNameCliente)}><li>Contacto</li></Link>
         {idPaqueteComprado!= null && Pagado!=1? <><Link onClick={pagarPaquete}><li>Pagar Paquete</li></Link></>:<></>}
-    <Link to={"/historial/" + (idPaqueteComprado!= null?idPaqueteComprado:idPaqueteVendido)}><li>Historial de Pagos</li></Link>
+    <Link to={(idPaqueteComprado!= null? "/historialC/" + idPaqueteComprado: "/historialV/" + idPaqueteVendido)}><li>Historial de Pagos</li></Link>
     <li>Ayuda</li>
   </ul>
 
