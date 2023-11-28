@@ -11,7 +11,7 @@ BEGIN
     DECLARE Mensaje VARCHAR(100);
     
     SET @MontoPagado = (SELECT SUM(PrecioPagado) FROM PagosPaqueteComprado WHERE IdPaqueteComprado = _idPaqueteComprado);
-    IF (MontoPagado IS NULL) THEN 
+    IF (@MontoPagado IS NULL) THEN 
 		SET @MontoPagado = 0;
 	END IF;
     
@@ -60,7 +60,7 @@ BEGIN
 		SET @MontoPagado = (SELECT SUM(PrecioPagado) FROM PagosPaqueteComprado WHERE IdPaqueteComprado = NEW.IdPaqueteComprado);
 		SET @MontoTotal = (SELECT PrecioPagado FROM PaqueteComprado WHERE IdPaqueteComprado = NEW.IdPaqueteComprado);
 		
-        IF @MontoPagado = @MontoTotal THEN
+        IF @MontoPagado >= @MontoTotal THEN
 			UPDATE PaqueteComprado SET Pagado = 1 WHERE IdPaqueteComprado = NEW.IdPaqueteComprado;
         END IF;
         
